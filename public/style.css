@@ -108,5 +108,19 @@ body.night-mode footer a{color:#ffcf83}
 body.night-mode #secretButton{background:#493453;color:#fff3d8;border-color:#fff0c9}
 body.night-mode .story-scroll-meter{background:#302943;color:#fff3d8;border-color:#fff0c9;box-shadow:4px 4px #100d1d}
 body.night-mode .story-scroll-meter>div{background:#171326;border-color:#fff0c9}
+/* Responsive Chaos Mode */
+.responsive-chaos-toggle{background:#fff0a3;color:#33274b;border:3px solid var(--ink);border-radius:12px;padding:8px 11px;font-weight:800;font-size:12px;cursor:pointer;box-shadow:3px 3px var(--ink);white-space:nowrap}
+.responsive-chaos-toggle[aria-pressed="true"]{background:#ff5b9b;color:#fff;animation:chaosToggleWiggle .35s ease-in-out infinite alternate}
+@keyframes chaosToggleWiggle{from{rotate:-2deg}to{rotate:2deg}}
+.playroom-stage.responsive-chaos{background-color:#ffe4f1;background-image:radial-gradient(#ff5b9b 3px,transparent 3.5px),radial-gradient(#8b5cf6 3px,transparent 3.5px);background-size:25px 25px,39px 39px;animation:backdropDrift 3s linear infinite}
+.playroom-stage.responsive-chaos .draggable-toy{animation:chaosToyWiggle .42s ease-in-out infinite alternate;box-shadow:4px 5px 0 #ff5b9b}
+.playroom-stage.responsive-chaos .toy-star{animation-delay:-.12s}.playroom-stage.responsive-chaos .toy-heart{animation-delay:-.24s}.playroom-stage.responsive-chaos .toy-duck{animation-delay:-.32s}.playroom-stage.responsive-chaos .toy-flower{animation-delay:-.18s}.playroom-stage.responsive-chaos .toy-cloud{animation-delay:-.28s}
+.playroom-stage.responsive-chaos .playroom-baby{animation-duration:.55s;color:#8b5cf6;text-shadow:3px 3px #ff5b9b}
+@keyframes chaosToyWiggle{from{rotate:-8deg;scale:1}to{rotate:9deg;scale:1.07}}
+body.night-mode .responsive-chaos-toggle{background:#ffe49b;color:#33274b;border-color:#fff0c9;box-shadow:3px 3px #100d1d}
+body.night-mode .responsive-chaos-toggle[aria-pressed="true"]{background:#b83e79;color:#fff}
+body.night-mode .playroom-stage.responsive-chaos{background-color:#292642;background-image:radial-gradient(#ff8fc2 3px,transparent 3.5px),radial-gradient(#8b5cf6 3px,transparent 3.5px)}
+@media(max-width:700px){.playroom-top{gap:8px}.responsive-chaos-toggle{font-size:10px;padding:7px 8px;white-space:normal;max-width:125px}.playroom-top>span:first-child{max-width:42%;line-height:1.2}.playroom-stage.responsive-chaos .draggable-toy{animation-duration:.65s}}
+@media(prefers-reduced-motion:reduce){.responsive-chaos-toggle[aria-pressed="true"],.playroom-stage.responsive-chaos,.playroom-stage.responsive-chaos .draggable-toy,.playroom-stage.responsive-chaos .playroom-baby{animation:none!important}}
 body.night-mode .theme-btn{background:#ffe49b;color:#33274b;border-color:#fff0c9}
 @media(prefers-reduced-motion:reduce){body.night-mode *{transition:none!important}}

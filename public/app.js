@@ -85,3 +85,15 @@ function updateStoryScroll(){
   fill.style.width=(progress*100)+"%";
 }
 window.addEventListener("scroll",updateStoryScroll,{passive:true});window.addEventListener("resize",updateStoryScroll);updateStoryScroll();
+
+/* Responsive Chaos Mode: optional extra-silly play that stays touch-friendly. */
+const chaosModeButton=$("#responsiveChaosToggle");
+chaosModeButton.addEventListener("click",()=>{
+  const enabled=playStage.classList.toggle("responsive-chaos");
+  chaosModeButton.setAttribute("aria-pressed",String(enabled));
+  chaosModeButton.textContent=enabled?"🌪️ CHAOS MODE: ON!!!":"🌪️ CHAOS MODE: OFF";
+  playMessage.textContent=enabled?"UH OH!!! THE TOYS ARE EXTRA WIGGLY!!!":"CALM TOYS!!! FOR NOW!!!";
+  say(enabled?"CHAOS MODE ACTIVATED!!! HOLD ON TO YOUR SOCKS!!!":"CHAOS MODE OFF!!! EVERYBODY BREATHE!!!");
+  beep(enabled?820:520);
+  if(enabled){scorePoint(2);for(let i=0;i<8;i++)setTimeout(()=>sparkAt(Math.random()*(playStage.clientWidth-30),Math.random()*(playStage.clientHeight-30),popEmojis[i%popEmojis.length]),i*45)}
+});
