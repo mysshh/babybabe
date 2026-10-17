@@ -95,5 +95,5 @@ chaosModeButton.addEventListener("click",()=>{
   playMessage.textContent=enabled?"UH OH!!! THE TOYS ARE EXTRA WIGGLY!!!":"CALM TOYS!!! FOR NOW!!!";
   say(enabled?"CHAOS MODE ACTIVATED!!! HOLD ON TO YOUR SOCKS!!!":"CHAOS MODE OFF!!! EVERYBODY BREATHE!!!");
   beep(enabled?820:520);
-  if(enabled){scorePoint(2);for(let i=0;i<8;i++)setTimeout(()=>sparkAt(Math.random()*(playStage.clientWidth-30),Math.random()*(playStage.clientHeight-30),popEmojis[i%popEmojis.length]),i*45)}
+  if(enabled){scorePoint(2);for(let i=0;i<8;i++)setTimeout(()=>sparkAt(Math.random()*(playStage.clientWidth-30),Math.random()*(playStage.clientHeight-30),popEmojis[i%popEmojis.length]),i*45);document.body.classList.add("mega-chaos");setTimeout(()=>document.body.classList.remove("mega-chaos"),1800);for(let i=0;i<18;i++)setTimeout(()=>shoutAt(Math.random()*window.innerWidth,Math.random()*window.innerHeight),i*65)}else{document.body.classList.remove("mega-chaos")}
 });
