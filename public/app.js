@@ -28,21 +28,17 @@ $("#storyBack").addEventListener("click",()=>{if(page>0)page--;renderPage()});$(
  update();
 })();
 
-// GAME 02: Baby Fashion Emergency — no rules, just tiny couture.
+// GAME 02: Who Stole My Pacifier?! — a tiny, silly shell-shuffle detective game.
 (()=>{
- const hat=$("#fashionHat"),fit=$("#fashionFit"),extra=$("#fashionExtra"),name=$("#fashionName"),status=$("#fashionStatus"),baby=$("#fashionBaby");
- if(!hat||!fit||!extra)return;
- const hats=["🎀","👑","🧢","🐸","🪿","🧁","🌈","🛸","🎩"];
- const fits=["👗","🧥","👚","🩱","🦺","🧸","🥷","🧦","👑"];
- const extras=["✨","💖","🧋","🪩","🍪","🦋","⭐","🪿","💅"];
- const looks=["THE CEO OF NAPS","A VERY FANCY POTATO","PRINCESS OF CRUMBS","THE MAYOR OF WIGGLETOWN","A TAX-FRAUD FAIRY","THE LAST BRAIN CELL MODEL","THE ROYAL MILK SOMMELIER","CERTIFIED LITTLE ICON","THE FASHION GOBLIN (GOOD EDITION)","BABY WHO PAYS RENT"];
- let hi=0,fi=0,ei=0,revealed=false;
- function update(){hat.textContent=hats[hi];fit.textContent=fits[fi];extra.textContent=extras[ei];name.textContent=revealed?looks[(hi*3+fi*5+ei*7)%looks.length]:"BABY BUBBLES, FASHION ICON";baby.style.transform="rotate("+((hi+fi+ei)%2? "-4deg":"4deg")+") scale(1.03)"}
- $("#fashionHatBtn").addEventListener("click",()=>{hi=(hi+1)%hats.length;revealed=false;update();status.textContent="HAT SELECTED. HEAD IS NOW 37% MORE IMPORTANT.";beep(620,.12)});
- $("#fashionFitBtn").addEventListener("click",()=>{fi=(fi+1)%fits.length;revealed=false;update();status.textContent="OUTFIT CHANGED. THE BABY HAS NO INCOME BUT BIG TASTE.";beep(700,.12)});
- $("#fashionExtraBtn").addEventListener("click",()=>{ei=(ei+1)%extras.length;revealed=false;update();status.textContent="ACCESSORY ACQUIRED. ECONOMY DESTROYED.";beep(780,.12)});
- $("#fashionReveal").addEventListener("click",()=>{revealed=true;update();status.textContent=["THE CROWD IS SCREAMING!!!","PARIS FASHION WEEK JUST CALLED. THEY ARE CONFUSED.","THE FIT IS SO POWERFUL IT OWES TAXES.","BUBBLES HAS NEVER LOOKED MORE EMPLOYABLE."][Math.floor(Math.random()*4)];baby.classList.remove("fashion-reveal-pop");void baby.offsetWidth;baby.classList.add("fashion-reveal-pop");for(let i=0;i<5;i++)setTimeout(()=>shoutAt(window.innerWidth*.25+Math.random()*window.innerWidth*.5,window.innerHeight*.25+Math.random()*window.innerHeight*.4),i*65);beep(880,.12);setTimeout(()=>beep(1120,.18),130);if(typeof scorePoint==="function")scorePoint(2);$("#fashionReveal").textContent="ANOTHER LOOK, PLEASE!!! 🔁"});
- update();
+ const stage=$("#pacifierStage"),cups=$$("#pacifierCups .pacifier-cup"),start=$("#pacifierStart"),prompt=$("#pacifierPrompt"),status=$("#pacifierStatus"),scoreLabel=$("#pacifierScore");
+ if(!stage||!cups.length||!start)return;
+ let target=1,found=0,playing=false,roundToken=0;
+ function paint(){cups.forEach((cup,i)=>{cup.classList.remove("revealed","correct","wrong","shuffling");cup.querySelector(".cup-cloud").textContent="☁️";cup.querySelector(".cup-number").textContent="CLOUD "+(i+1);cup.disabled=!playing})}
+ function reveal(){cups.forEach((cup,i)=>{cup.classList.add("revealed");cup.querySelector(".cup-cloud").textContent=i===target?"🍼":"☁️";cup.querySelector(".cup-number").textContent=i===target?"BINKY!!!":"JUST A CLOUD"})}
+ function begin(){roundToken++;const token=roundToken;playing=false;target=Math.floor(Math.random()*3);paint();prompt.textContent="WATCH THE BINKY!!! 👀";status.textContent="IT'S UNDER ONE OF THESE CLOUDS...";cups[target].querySelector(".cup-cloud").textContent="🍼";cups[target].classList.add("revealed");cups.forEach(c=>c.disabled=true);
+ setTimeout(()=>{if(token!==roundToken)return;cups[target].querySelector(".cup-cloud").textContent="☁️";cups.forEach(c=>c.classList.remove("revealed"));prompt.textContent="SHUFFLE SHUFFLE SHUFFLE!!!";let swaps=0;const shuffle=setInterval(()=>{if(token!==roundToken){clearInterval(shuffle);return}const a=Math.floor(Math.random()*3),b=(a+1+Math.floor(Math.random()*2))%3;cups[a].classList.add("shuffling");cups[b].classList.add("shuffling");setTimeout(()=>{cups[a].classList.remove("shuffling");cups[b].classList.remove("shuffling")},260);if(target===a)target=b;else if(target===b)target=a;swaps++;if(swaps>=4){clearInterval(shuffle);playing=true;cups.forEach(c=>c.disabled=false);prompt.textContent="WHERE'S THE BINKY?!";status.textContent="PICK CLOUD 1, 2, OR 3!!!";start.textContent="SHUFFLE AGAIN!!! 🔁"}},330)},900)}
+ cups.forEach((cup,i)=>cup.addEventListener("click",()=>{if(!playing)return;playing=false;cups.forEach(c=>c.disabled=true);const correct=i===target;if(correct){found++;cup.classList.add("correct");cup.querySelector(".cup-cloud").textContent="🍼";status.textContent=["YOU FOUND IT!!! BABY DETECTIVE!!! 🕵️","BINKY RECOVERED!!! THE BABY CAN BREATHE!!!","GENIUS!!! THE CLOUDS HAVE BEEN QUESTIONED."][found%3];prompt.textContent="MYSTERY SOLVED!!! 🎉";if(typeof scorePoint==="function")scorePoint(2);beep(850,.15);setTimeout(()=>beep(1100,.18),130)}else{cup.classList.add("wrong");cups[target].classList.add("correct");cups[target].querySelector(".cup-cloud").textContent="🍼";status.textContent="NOOOPE!!! THAT CLOUD IS JUST FLUFF. TRY AGAIN!!!";prompt.textContent="THE BINKY WAS OVER HERE!!!";beep(240,.18)}scoreLabel.textContent="BINKIES FOUND: "+found;start.textContent="PLAY ANOTHER ROUND!!! 🔁";}));
+ start.addEventListener("click",begin);paint();
 })();
 
 // GAME 03: Tiny memory test — see three icons, then find them at your own pace.
