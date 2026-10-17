@@ -307,3 +307,11 @@ body.night-mode #dreamAngelCourier .angel-aura{text-shadow:0 0 16px #fff1a9}
 
 /* Slow scroll-through story sequence: the open book stays in view while its spreads turn. */
 @media(min-width:601px){#story{min-height:195vh;padding-bottom:65px}#storybook{position:sticky;top:128px;z-index:2}}
+/* Make the only travelling dream-delivery icon easier to spot. */
+#dreamAngelCourier{width:96px;min-height:108px;right:clamp(9px,2.5vw,32px)}
+#dreamAngelCourier .angel-face{font-size:54px}
+#dreamAngelCourier .angel-wings{font-size:33px;top:14px}
+#dreamAngelCourier .angel-aura{font-size:90px}
+#dreamAngelCourier .angel-trail{top:68px;font-size:19px}
+#dreamAngelCourier .angel-progress{top:88px;font-size:10px;padding:4px 7px}
+@media(max-width:600px){#dreamAngelCourier{right:3px;transform:translateY(-50%) scale(.9)}}
