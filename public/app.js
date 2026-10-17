@@ -18,15 +18,55 @@ $("#storyBack").addEventListener("click",()=>{if(page>0)page--;renderPage()});$(
 (()=>{
  const arena=$("#arcadeArena"),start=$("#arcadeStart"),scoreLabel=$("#arcadeScore"),timeLabel=$("#arcadeTime"),rankLabel=$("#arcadeRank"),status=$("#arcadeStatus"),idle=$("#arcadeIdle");
  if(!arena||!start)return;
- let running=false,score=0,seconds=20,spawnTimer,clockTimer,round=0;
+ let running=false,score=0,seconds=35,spawnTimer,clockTimer,round=0;
  const snacks=["🍪","🍓","🧀","🧁","🍉","🥨","🍕"],socks=["🧦","🧦","💩"];
  const ranks=[{n:0,t:"POTATO"},{n:3,t:"CRUMB INTERN"},{n:7,t:"SNACK WIZARD"},{n:12,t:"COOKIE CEO"},{n:18,t:"SUPREME GOBLIN"}];
  function update(){scoreLabel.textContent="SNACKS: "+score;timeLabel.textContent="TIME: "+seconds;rankLabel.textContent="RANK: "+ranks.filter(r=>score>=r.n).at(-1).t}
  function endGame(){running=false;clearInterval(spawnTimer);clearInterval(clockTimer);arena.querySelectorAll(".arcade-target").forEach(x=>x.remove());const title=score>=12?"COOKIE CEO!!! THE SNACK ECONOMY FEARS YOU.":score>=6?"CERTIFIED CRUMB GREMLIN!!!":"A VERY BRAVE LITTLE POTATO!!!";const card=document.createElement("div");card.className="arcade-end";card.innerHTML="<div>"+(score>=12?"🏆":score>=6?"🥨":"🥔")+"</div><strong>"+title+"</strong><p>You caught "+score+" snacks and "+(round-score)+" questionable objects. Bubbles is proud and mildly sticky.</p>";arena.appendChild(card);status.textContent=score>=12?"YOU HAVE ASCENDED TO SNACK HEAVEN!!!":score>=6?"NOT BAD, LITTLE CRUMB!!!":"THE SOCKS WON THIS ROUND. DISGUSTING.";start.textContent="PLAY AGAIN, YOU LITTLE MENACE!!! 🔁";if(score>=6&&typeof scorePoint==="function")scorePoint(3);beep(score>=6?880:330,.28)}
- function spawn(){if(!running)return;const bad=Math.random()<.29,el=document.createElement("button");el.type="button";el.className="arcade-target "+(bad?"sock-target":"snack-target");el.textContent=bad?socks[Math.floor(Math.random()*socks.length)]:snacks[Math.floor(Math.random()*snacks.length)];el.setAttribute("aria-label",bad?"Suspicious sock: avoid it":"Catch snack "+el.textContent);el.style.left=(3+Math.random()*82)+"%";el.style.top=(5+Math.random()*70)+"%";el.style.setProperty("--tilt",(Math.random()*35-17)+"deg");el.addEventListener("click",()=>{if(!running)return;round++;if(bad){score=Math.max(0,score-2);status.textContent=["EW!!! SOCK JUICE!!! -2","THAT SOCK HAS A JOB AND IT IS CRIME. -2","BUBBLES LICKED IT ONCE. NEVER AGAIN. -2"][Math.floor(Math.random()*3)];beep(180,.22)}else{score++;status.textContent=["NOM NOM NOM!!! +1 SNACK","CRONCH!!! A PERFECT LITTLE CRONCH. +1","THE BABY GOBLIN APPROVES. +1","EXCELLENT SNACK GRABBING, LEGEND. +1"][Math.floor(Math.random()*4)];beep(650+Math.random()*350,.12)}update();el.classList.add("caught");setTimeout(()=>el.remove(),180)});arena.appendChild(el);setTimeout(()=>{if(el.isConnected&&!el.classList.contains("caught")){el.classList.add("escaped");setTimeout(()=>el.remove(),250)}},1450)}
- start.addEventListener("click",()=>{if(running)return;clearInterval(spawnTimer);clearInterval(clockTimer);arena.querySelectorAll(".arcade-target,.arcade-end").forEach(x=>x.remove());idle.hidden=true;running=true;score=0;seconds=20;round=0;start.textContent="THE SNACKENING IS HAPPENING!!!";status.textContent="GO GO GO!!! GRAB THE FOOD, NOT THE SOCKS!!!";update();spawn();spawnTimer=setInterval(spawn,510);clockTimer=setInterval(()=>{seconds--;update();if(seconds<=0)endGame()},1000)});
+ function spawn(){if(!running)return;const bad=Math.random()<.29,el=document.createElement("button");el.type="button";el.className="arcade-target "+(bad?"sock-target":"snack-target");el.textContent=bad?socks[Math.floor(Math.random()*socks.length)]:snacks[Math.floor(Math.random()*snacks.length)];el.setAttribute("aria-label",bad?"Suspicious sock: avoid it":"Catch snack "+el.textContent);el.style.left=(3+Math.random()*82)+"%";el.style.top=(5+Math.random()*70)+"%";el.style.setProperty("--tilt",(Math.random()*35-17)+"deg");el.addEventListener("click",()=>{if(!running)return;round++;if(bad){score=Math.max(0,score-2);status.textContent=["EW!!! SOCK JUICE!!! -2","THAT SOCK HAS A JOB AND IT IS CRIME. -2","BUBBLES LICKED IT ONCE. NEVER AGAIN. -2"][Math.floor(Math.random()*3)];beep(180,.22)}else{score++;status.textContent=["NOM NOM NOM!!! +1 SNACK","CRONCH!!! A PERFECT LITTLE CRONCH. +1","THE BABY GOBLIN APPROVES. +1","EXCELLENT SNACK GRABBING, LEGEND. +1"][Math.floor(Math.random()*4)];beep(650+Math.random()*350,.12)}update();el.classList.add("caught");setTimeout(()=>el.remove(),180)});arena.appendChild(el);setTimeout(()=>{if(el.isConnected&&!el.classList.contains("caught")){el.classList.add("escaped");setTimeout(()=>el.remove(),250)}},2800)}
+ start.addEventListener("click",()=>{if(running)return;clearInterval(spawnTimer);clearInterval(clockTimer);arena.querySelectorAll(".arcade-target,.arcade-end").forEach(x=>x.remove());idle.hidden=true;running=true;score=0;seconds=35;round=0;start.textContent="THE SNACKENING IS HAPPENING!!!";status.textContent="TAKE YOUR TIME!!! GRAB THE FOOD, NOT THE SOCKS!!!";update();spawn();spawnTimer=setInterval(spawn,1050);clockTimer=setInterval(()=>{seconds--;update();if(seconds<=0)endGame()},1000)});
  update();
 })();
+
+// GAME 02: Boop the Goblin — slow, forgiving, and silly.
+(()=>{
+ const target=$("#goblinTarget"),reset=$("#goblinReset"),progress=$("#goblinProgress"),status=$("#goblinStatus");
+ if(!target||!reset)return;
+ let boops=0,started=false;
+ target.addEventListener("click",()=>{
+   if(!started){status.textContent="PRESS START FIRST, LITTLE GOBLIN HUNTER!!!";return}
+   boops++;progress.textContent="BOOPS: "+boops+" / 5";
+   target.textContent=["🐸","🐸","😵‍💫","🐸","🥹"][Math.min(boops-1,4)];
+   target.style.transform="rotate("+(boops%2?12:-12)+"deg) scale(1.12)";
+   status.textContent=["THE GOBLIN HAS BEEN BOOPED. LEGALLY.","IT MADE A LITTLE PEEP!!!","GOBLIN BRAIN: BUFFERING...","FOUR BOOPS?! ABSOLUTE NONSENSE.","YOU DID IT!!! GOBLIN IS NOW YOUR ROOMMATE."][Math.min(boops-1,4)];
+   beep(450+boops*90,.16);
+   if(boops>=5){started=false;reset.textContent="BOOP AGAIN!!! 🔁";target.textContent="🏆";if(typeof scorePoint==="function")scorePoint(2)}
+ });
+ reset.addEventListener("click",()=>{boops=0;started=true;target.textContent="🐸";target.style.transform="";progress.textContent="BOOPS: 0 / 5";status.textContent="GO ON. GIVE THAT GOBLIN A GENTLE BOOP.";reset.textContent="RESET THE GOBLIN 🔁"});
+})();
+
+// GAME 03: Tiny memory test — see three icons, then find them at your own pace.
+(()=>{
+ const start=$("#brainStart"),prompt=$("#brainPrompt"),options=$("#brainOptions"),status=$("#brainStatus");
+ if(!start||!options)return;
+ const all=["🍓","🐸","🌈","🧦","⭐","🍪"];
+ let chosen=[],found=new Set(),playing=false;
+ function drawOptions(){options.querySelectorAll("button").forEach(btn=>{btn.disabled=!playing;btn.classList.toggle("found",found.has(btn.textContent));btn.textContent=btn.dataset.item||btn.textContent})}
+ options.querySelectorAll("button").forEach(btn=>btn.addEventListener("click",()=>{
+   if(!playing||found.has(btn.dataset.item))return;
+   if(chosen.includes(btn.dataset.item)){found.add(btn.dataset.item);btn.classList.add("found");status.textContent=["YES!!! BRAIN WRINKLE ACQUIRED.","CORRECT!!! THE POTATO IS EVOLVING.","BIG BRAIN BABY!!!"][found.size%3];beep(650+found.size*100,.15)}
+   else{status.textContent="NOPE! THAT ONE IS JUST A SILLY LITTLE GUY. TRY AGAIN.";beep(230,.15)}
+   if(found.size===chosen.length){playing=false;drawOptions();prompt.textContent="MEMORY CHAMPION!!! 🏆";status.textContent="YOU REMEMBERED ALL THREE!!! BUBBLES IS VERY IMPRESSED.";start.textContent="PLAY AGAIN, SMART POTATO!!! 🔁";if(typeof scorePoint==="function")scorePoint(2)}
+ }));
+ start.addEventListener("click",()=>{
+   chosen=[];found=new Set();playing=false;
+   const pool=[...all];while(chosen.length<3){const i=Math.floor(Math.random()*pool.length);chosen.push(pool.splice(i,1)[0])}
+   options.querySelectorAll("button").forEach((btn,i)=>{btn.dataset.item=all[i];btn.textContent=chosen.includes(all[i])?all[i]:"❔";btn.disabled=true;btn.classList.remove("found")});
+   prompt.textContent=chosen.join("   ")+"   LOOK LOOK LOOK!!!";status.textContent="MEMORIZE THOSE THREE LITTLE GUYS...";start.textContent="I SAW THEM!!! START GUESSING";
+   setTimeout(()=>{prompt.textContent="WHICH THREE DID YOU SEE?";options.querySelectorAll("button").forEach(btn=>{btn.textContent=btn.dataset.item;btn.disabled=false});playing=true;status.textContent="TAP THE THREE YOU REMEMBER. NO TIMER!!!"},2600);
+ });
+})();
+
 const happyFaces=$("#happyFaces");$$("[data-face]").forEach(btn=>btn.addEventListener("click",()=>{const span=document.createElement("span");span.textContent=btn.dataset.face;span.style.color=["#ff5b9b","#7a3d88","#368ab1"][Math.floor(Math.random()*3)];happyFaces.appendChild(span);if(happyFaces.children.length>14)happyFaces.firstElementChild.remove();$("#happyMessage").textContent="YAY!!! "+btn.dataset.face+" IS IN THE HAPPY JAR!!!";beep(680);}));
 $("#hugBtn").addEventListener("click",()=>{$("#hugResult").textContent="BIG SQUISHY HUGGGGG!!! 🤗♡🤗";beep(520);setTimeout(()=>beep(740),140);});
 let secrets=0;function secretClick(){secrets++;const secret=$("#secretButton");if(secrets<5){secret.animate([{transform:"scale(1) rotate(0)"},{transform:"scale(1.35) rotate(20deg)"},{transform:"scale(1) rotate(0)"}],{duration:350});say(["teehee...","wrong flower!!!","getting warmer!!!","ONE MORE!!!"][secrets-1]);beep(400+secrets*70)}else{say("SECRET UNLOCKED!!! BUBBLES THINKS YOU ARE THE BEST BABY EVER!!! ♡");secret.textContent="♡";secret.classList.add("secret-unlocked");secret.setAttribute("aria-label","Secret unlocked! You are Bubbles' best baby ever");secret.title="YOU FOUND THE SECRET!!!";const note=document.createElement("div");note.id="secretNote";note.setAttribute("role","status");note.innerHTML="<strong>YOU FOUND MY SECRET!!! ♡</strong><span>YOU ARE BUBBLES' BEST BABY EVER!!!</span><span>🌈 ⭐ 🌼 THANK YOU FOR PLAYING!!! 🌼 ⭐ 🌈</span>";document.body.appendChild(note);for(let i=0;i<22;i++)setTimeout(()=>shoutAt(Math.random()*window.innerWidth,Math.random()*window.innerHeight),i*45);[523,659,784,1046].forEach((f,i)=>setTimeout(()=>beep(f,.24),i*130));secret.removeEventListener("click",secretClick)}}$("#secretButton").addEventListener("click",secretClick);
