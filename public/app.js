@@ -106,9 +106,9 @@ $("#sleepToggleMusic").addEventListener("click",()=>{if(lullabyPlaying){stopLull
 document.addEventListener("keydown",e=>{if(e.key==="Escape"&&$("#sleepMode").classList.contains("is-open"))closeSleepMode()});
 // Lullaby Lab: play the three original, unmodified audio files.
 const lullabyTunes={
-  moon:{title:"TWILIGHT FOREST LULLABY",src:"/audio/twilight-forest-lullaby.mp3"},
-  cloud:{title:"GENTLE OCEAN DRIFT",src:"/audio/gentle-ocean-drift.mp3"},
-  star:{title:"SWEET LULLABY (WITH VOCALS)",src:"/audio/sweet-lullaby-with-vocals.mp3"}
+  moon:{title:"SLEEPY FOREST HUSH",src:"/audio/twilight-forest-lullaby.mp3"},
+  cloud:{title:"BUBBLES’ OCEAN CUDDLES",src:"/audio/gentle-ocean-drift.mp3"},
+  star:{title:"TWINKLE-TINY LOVE SONG",src:"/audio/sweet-lullaby-with-vocals.mp3"}
 };
 let selectedLullaby="moon",lullabyMuted=false,lullabyPlaying=false;
 const lullabyAudio=new Audio();
