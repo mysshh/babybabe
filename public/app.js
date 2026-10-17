@@ -66,24 +66,26 @@ $("#storyBack").addEventListener("click",()=>{if(page>0)page--;renderPage()});$(
 const happyFaces=$("#happyFaces");$$("[data-face]").forEach(btn=>btn.addEventListener("click",()=>{const span=document.createElement("span");span.textContent=btn.dataset.face;span.style.color=["#ff5b9b","#7a3d88","#368ab1"][Math.floor(Math.random()*3)];happyFaces.appendChild(span);if(happyFaces.children.length>14)happyFaces.firstElementChild.remove();$("#happyMessage").textContent="YAY!!! "+btn.dataset.face+" IS IN THE HAPPY JAR!!!";beep(680);}));
 $("#hugBtn").addEventListener("click",()=>{$("#hugResult").textContent="BIG SQUISHY HUGGGGG!!! 🤗♡🤗";beep(520);setTimeout(()=>beep(740),140);});
 const babyFortunes=[
- {title:"A SNACK IS IN YOUR FUTURE.",note:"THE COOKIE KNOWS. THE COOKIE ALWAYS KNOWS. 🍪"},
- {title:"YOU WILL FIND A TINY TREASURE.",note:"IT MAY BE A COIN. IT MAY BE A CRUMB. VALUE IS A SOCIAL CONSTRUCT. ✨"},
- {title:"SOMEONE THINKS YOU ARE COOL.",note:"IT IS BUBBLES. BUBBLES IS SOMEONE. 💖"},
- {title:"TODAY IS A GOOD DAY TO WIGGLE.",note:"WIGGLE FIRST. ASK QUESTIONS NEVER. 🕺"},
- {title:"YOUR BRAIN CELL WILL RETURN.",note:"IT WENT TO BUY MILK. IT WILL BE BACK. 🧠"},
- {title:"A BIG GIGGLE IS APPROACHING.",note:"PROBABLY AT A VERY INCONVENIENT TIME. 🤭"},
- {title:"YOU ARE 100% LITTLE LEGEND.",note:"OFFICIAL STAMP. NO APPEALS. 👑"},
- {title:"A CLOUD IS ROOTING FOR YOU.",note:"THAT CLOUD IS ME. I AM VERY SOFT. ☁️"},
- {title:"YOU SHALL CONQUER A SOCK.",note:"THE LEFT ONE. THE RIGHT ONE REMAINS MYSTERIOUS. 🧦"},
- {title:"YOUR VIBE IS SPARKLY SOUP.",note:"NOBODY KNOWS WHAT THAT MEANS. IT IS A COMPLIMENT. 🪩"},
- {title:"A SURPRISE WILL GO PLOP.",note:"KEEP YOUR EYES OPEN AND YOUR SNACKS CLOSER. 🌈"},
- {title:"YOU DESERVE A LITTLE REST.",note:"EVEN LEGENDS NEED A NAP. ZZZ... 🌙"}
+ {title:"A SNACK IS IN YOUR FUTURE.",note:"THE COOKIE KNOWS. THE COOKIE ALWAYS KNOWS. 🍪",audio:"/audio/bubbles-snack.mp3"},
+ {title:"YOU WILL FIND A TINY TREASURE.",note:"IT MAY BE A COIN. IT MAY BE A CRUMB. VALUE IS A SOCIAL CONSTRUCT. ✨",audio:"/audio/bubbles-treasure.mp3"},
+ {title:"SOMEONE THINKS YOU ARE COOL.",note:"IT IS BUBBLES. BUBBLES IS SOMEONE. 💖",audio:"/audio/bubbles-likes.mp3"},
+ {title:"TODAY IS A GOOD DAY TO WIGGLE.",note:"WIGGLE FIRST. ASK QUESTIONS NEVER. 🕺",audio:"/audio/bubbles-wiggle.mp3"},
+ {title:"YOUR BRAIN CELL WILL RETURN.",note:"IT WENT TO BUY MILK. IT WILL BE BACK. 🧠",audio:"/audio/bubbles-brain-cell.mp3"},
+ {title:"A BIG GIGGLE IS APPROACHING.",note:"PROBABLY AT A VERY INCONVENIENT TIME. 🤭",audio:"/audio/bubbles-giggle.mp3"},
+ {title:"YOU ARE 100% LITTLE LEGEND.",note:"OFFICIAL STAMP. NO APPEALS. 👑",audio:"/audio/bubbles-legend.mp3"},
+ {title:"A CLOUD IS ROOTING FOR YOU.",note:"THAT CLOUD IS ME. I AM VERY SOFT. ☁️",audio:"/audio/bubbles-cloud.mp3"},
+ {title:"YOU SHALL CONQUER A SOCK.",note:"THE LEFT ONE. THE RIGHT ONE REMAINS MYSTERIOUS. 🧦",audio:"/audio/bubbles-sock.mp3"},
+ {title:"YOUR VIBE IS SPARKLY SOUP.",note:"NOBODY KNOWS WHAT THAT MEANS. IT IS A COMPLIMENT. 🪩",audio:"/audio/bubbles-sparkly-soup.mp3"},
+ {title:"A SURPRISE WILL GO PLOP.",note:"KEEP YOUR EYES OPEN AND YOUR SNACKS CLOSER. 🌈",audio:"/audio/bubbles-plop.mp3"},
+ {title:"YOU DESERVE A LITTLE REST.",note:"EVEN LEGENDS NEED A NAP. ZZZ... 🌙",audio:"/audio/bubbles-nap.mp3"}
 ];
 let currentFortune=null;
-function readFortuneAloud(){if(!currentFortune)return;const hint=$("#fortuneVoiceHint");if(!("speechSynthesis" in window)||!("SpeechSynthesisUtterance" in window)){hint.textContent="OH NOOO!!! THIS BROWSER DOES NOT HAVE A TALKING BABY VOICE. TRY A DIFFERENT BROWSER!";return}window.speechSynthesis.cancel();const line=currentFortune.title+" "+currentFortune.note;const utterance=new SpeechSynthesisUtterance(line);utterance.lang="en-US";utterance.rate=.86;utterance.pitch=1.75;const voices=window.speechSynthesis.getVoices();const voice=voices.find(v=>/^en(-|_)/i.test(v.lang)&&/female|child|samantha|zira|aria|jenny/i.test(v.name))||voices.find(v=>/^en(-|_)/i.test(v.lang));if(voice)utterance.voice=voice;utterance.onstart=()=>{hint.textContent="BA BA BA... BUBBLES IS READING!!! 🍼";$("#fortuneVoiceBtn").textContent="🔊 BUBBLES IS TALKING..."};utterance.onend=()=>{$("#fortuneVoiceBtn").textContent="🍼 READ IT AGAIN!!!";hint.textContent="THE PROPHECY HAS BEEN DELIVERED. GOO GOO GAA GAA!!!"};utterance.onerror=()=>{$("#fortuneVoiceBtn").textContent="🍼 READ IT TO ME, BABY!!! 🔊";hint.textContent="THE BABY VOICE GOT THE HICCUPS. TAP TO TRY AGAIN!!!"};window.speechSynthesis.speak(utterance)}
-$("#fortuneVoiceBtn").disabled=!("speechSynthesis" in window);
+let fortuneAudio=null;
+function readFortuneAloud(){if(!currentFortune)return;const hint=$("#fortuneVoiceHint"),btn=$("#fortuneVoiceBtn");if(fortuneAudio){fortuneAudio.pause();fortuneAudio.currentTime=0}fortuneAudio=new Audio(currentFortune.audio);fortuneAudio.onplay=()=>{hint.textContent="BA BA BA... BUBBLES IS READING!!! 🍼";btn.textContent="🔊 BUBBLES IS TALKING..."};fortuneAudio.onended=()=>{btn.textContent="🍼 READ IT AGAIN!!!";hint.textContent="THE PROPHECY HAS BEEN DELIVERED. GOO GOO GAA GAA!!!"};fortuneAudio.onerror=()=>{btn.textContent="🍼 READ IT TO ME, BABY!!! 🔊";hint.textContent="OH NOOO!!! THE BABY VOICE GOT THE HICCUPS. TAP TO TRY AGAIN!!!"};fortuneAudio.play().catch(()=>{hint.textContent="TAP AGAIN TO WAKE UP THE TINY VOICE!!!"})}
+$("#fortuneVoiceBtn").disabled=false;
 $("#fortuneVoiceBtn").addEventListener("click",readFortuneAloud);
 $("#fortuneBtn").addEventListener("click",()=>{
+ if(fortuneAudio){fortuneAudio.pause();fortuneAudio.currentTime=0;}
  if("speechSynthesis" in window)window.speechSynthesis.cancel();
  const paper=$("#fortunePaper"),pick=babyFortunes[Math.floor(Math.random()*babyFortunes.length)];currentFortune=pick;
  paper.classList.remove("fortune-pop");void paper.offsetWidth;paper.classList.add("fortune-pop");
