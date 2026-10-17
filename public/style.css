@@ -304,6 +304,23 @@ body.night-mode #dreamAngelCourier .angel-aura{text-shadow:0 0 16px #fff1a9}
 @keyframes angelTrail{50%{transform:translate(-5px,8px);opacity:.45}}
 @media(max-width:600px){#storybook{grid-template-columns:1fr;padding:19px 12px 15px 24px;gap:0}#storybook .story-picture{min-height:235px;margin-left:5px}#storybook .story-content{border-left:0;border-top:3px solid #eadcc9;border-radius:0 0 12px 12px;padding:22px 14px 15px}#storybook .story-content p{min-height:0}#dreamAngelCourier{right:2px;transform:translateY(-50%) scale(.78);transform-origin:right center}#dreamAngelCourier .angel-progress{font-size:8px}}
 @media(prefers-reduced-motion:reduce){#dreamAngelCourier *,#storybook .story-picture *,#storybook .story-content *{animation:none!important}}
+/* v36: make the storybook read as a real open book, with a physical page stack and a flipping paper leaf. */
+#storybook{perspective:1800px;transform-style:preserve-3d;position:relative;background:linear-gradient(90deg,#d94f91 0 15px,#ff9fc7 15px 25px,#fff7e5 25px 49.5%,#d8b9a3 49.5%,#f8e9d2 50%,#fffaf0 50.5% 100%);border-radius:12px 22px 22px 12px;padding:18px 18px 18px 30px;box-shadow:9px 10px 0 #33274b,14px 16px 0 rgba(51,39,75,.18),inset 5px 0 #ff78ad}
+#storybook::before{inset:5px -12px -12px 12px;border:2px solid #33274b;border-radius:10px 22px 22px 10px;background:repeating-linear-gradient(0deg,#fffdf4 0 4px,#e8d8c8 4px 5px);box-shadow:4px 4px 0 #33274b}
+#storybook::after{top:-21px;letter-spacing:.04em}
+#storybook .story-picture{margin:0;min-height:345px;border-radius:5px 3px 3px 5px;border:0;border-right:2px solid #e6d5c5;box-shadow:inset -9px 0 12px rgba(70,45,55,.08),inset 4px 0 rgba(255,255,255,.8),0 2px 0 #eadac8;background-color:#b9eafa}
+#storybook .story-content{margin:0;min-height:345px;align-self:stretch;display:flex;flex-direction:column;justify-content:center;border:0;border-left:2px solid #d9c6b6;border-radius:2px 7px 7px 2px;background:repeating-linear-gradient(0deg,#fffdf5 0 31px,#f2e8db 32px 33px);box-shadow:inset 8px 0 12px rgba(70,45,55,.06),inset -3px 0 #fff}
+#storybook .story-content::before{content:"";position:absolute;left:-5px;top:0;bottom:0;width:8px;background:linear-gradient(90deg,rgba(80,50,50,.12),rgba(255,255,255,.4));pointer-events:none}
+.real-page-turn-sheet{position:absolute;z-index:8;top:18px;bottom:18px;left:calc(50% + 1px);right:18px;padding:24px 20px 18px 25px;overflow:hidden;transform-origin:left center;transform-style:preserve-3d;backface-visibility:hidden;border-left:2px solid #d7c4b3;border-radius:2px 8px 8px 2px;background:repeating-linear-gradient(0deg,#fffdf5 0 31px,#f2e8db 32px 33px);box-shadow:inset 8px 0 12px rgba(70,45,55,.06),4px 3px 8px rgba(40,20,35,.18);color:#33274b}
+.real-page-turn-sheet::after{content:"♡";position:absolute;right:14px;top:8px;color:#ff5b9b;font-size:26px}
+.real-page-turn-sheet.turning{animation:realPaperFlip .68s cubic-bezier(.42,0,.25,1) forwards}
+.real-page-turn-sheet .story-count{display:inline-block;width:max-content;background:#c8f4ff;border:2px solid #33274b;border-radius:8px;padding:6px 9px;font-size:11px;font-weight:1000}
+.real-page-turn-sheet h3{font-size:clamp(22px,3vw,36px);line-height:1;margin:17px 0 10px;padding-right:18px}
+.real-page-turn-sheet p{font-size:16px;line-height:1.6}
+.real-page-turn-sheet .story-controls{display:none}
+@keyframes realPaperFlip{0%{transform:rotateY(0deg);filter:brightness(1)}45%{filter:brightness(.84)}100%{transform:rotateY(calc(var(--turn-direction)*180deg));filter:brightness(1)}}
+@media(max-width:600px){#storybook{background:linear-gradient(90deg,#d94f91 0 13px,#ff9fc7 13px 23px,#fff7e5 23px 100%);padding:19px 12px 15px 24px}#storybook .story-picture{min-height:235px;border-bottom:2px solid #e6d5c5;border-radius:5px 5px 0 0}#storybook .story-content{min-height:0;border-left:0;border-top:2px solid #d9c6b6;border-radius:0 0 7px 7px;padding:22px 14px 15px}.real-page-turn-sheet{left:24px;right:12px;top:19px;bottom:auto;min-height:calc(100% - 34px);padding:22px 14px 15px;border:2px solid #d7c4b3;border-radius:7px;}}
+@media(prefers-reduced-motion:reduce){.real-page-turn-sheet.turning{animation:none!important;display:none!important}}
 
 /* Slow scroll-through story sequence: the open book stays in view while its spreads turn. */
 @media(min-width:601px){#story{min-height:195vh;padding-bottom:65px}#storybook{position:sticky;top:128px;z-index:2}}
