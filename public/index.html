@@ -1,111 +1,98 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="theme-color" content="#fff8f1" />
-  <meta name="description" content="Pip's Midnight Mailroom — tiny dreams, delivered after dark." />
-  <title>Pip's Midnight Mailroom ✦</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,500;9..144,600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/style.css" />
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#ffed7a">
+<title>HIIII!!! Welcome to Baby World!!!</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Comic+Neue:wght@700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/style.css">
 </head>
 <body>
-  <div class="paper-grain" aria-hidden="true"></div>
-  <header class="topbar">
-    <a class="brand" href="#home" aria-label="Pip's Midnight Mailroom home"><span class="brand-stamp">✦</span> MIDNIGHT MAILROOM <span class="brand-edition">VOL. 001</span></a>
-    <nav aria-label="Main navigation">
-      <a href="#projects">THE GOODIES</a>
-      <a href="#story">HOW I GOT HERE</a>
-      <button id="modeToggle" class="mode-toggle" aria-pressed="false">☼ DAYDREAM</button>
-    </nav>
-  </header>
+<div class="confetti-bg" aria-hidden="true">✿　★　♡　✦　☁　★　✿　♡　✦　★　☁　♡</div>
+<header class="baby-header">
+  <a class="logo" href="#home" aria-label="Baby World home"><span class="logo-face">:D</span><span>BABY<br>WORLD!!!</span></a>
+  <div class="header-middle">HIIII FRIEND!!! <span class="wiggle">👋</span></div>
+  <button id="musicToggle" class="sound-btn" aria-pressed="false">🔊 SOUND ON?</button>
+</header>
+<main id="home">
+<section class="hero">
+  <div class="hero-stickers"><span class="sticker sticker-wow">WOW!!!</span><span class="sticker sticker-heart">♡</span><span class="sticker sticker-star">★ ★ ★</span></div>
+  <div class="hero-copy">
+    <div class="tiny-label">★ MY VERY OWN WEBSITE ★</div>
+    <h1>HIIIIIIII!!<br>I'm <span class="name-highlight">BUBBLES</span>!!!</h1>
+    <p class="baby-talk">I am a tiny cloud baby!!! ☁ I make BIG feelings, little art, and VERY IMPORTANT happy stuff!!! Wanna see?? Wanna wanna wanna???</p>
+    <a class="giant-btn" href="#toys">YES YES YES!!! <span>➜</span></a>
+    <button class="plain-btn" id="waveBtn">NO WAIT, SAY HI FIRST!!! 👋</button>
+    <div class="scribble">made by me!!! (with help) <span>♡</span></div>
+  </div>
+  <div class="character-stage">
+    <div class="sunburst"></div>
+    <div class="bubble bubble-one">HI!!!</div><div class="bubble bubble-two">hehe</div><div class="bubble bubble-three">♡</div>
+    <div class="original-baby" id="babyCharacter" role="button" tabindex="0" aria-label="Click Bubbles to make them react">
+      <div class="baby-cloud"></div>
+      <div class="baby-body"></div>
+      <div class="baby-ear ear-left"></div><div class="baby-ear ear-right"></div>
+      <div class="baby-face"><div class="hair"></div><div class="eye eye-left"></div><div class="eye eye-right"></div><div class="cheek cheek-left"></div><div class="cheek cheek-right"></div><div class="mouth"></div></div>
+      <div class="baby-bow">✿</div><div class="baby-arm arm-left"></div><div class="baby-arm arm-right"></div>
+      <div class="baby-feet"><i></i><i></i></div>
+      <span class="baby-name-tag">BUBBLES!!!</span>
+    </div>
+    <div class="ground-doodle">~~~~~~~~~~~~~~~~</div>
+    <p class="character-hint">☝ CLICK MY FACE!!! ☝</p>
+  </div>
+  <div class="marquee"><div class="marquee-inner">WELCOME WELCOME WELCOME!!! ★ YOU ARE SO COOL!!! ★ CLICK EVERYTHING!!! ★ NO BEDTIME YET!!! ★ WELCOME WELCOME WELCOME!!! ★ YOU ARE SO COOL!!! ★ CLICK EVERYTHING!!! ★ NO BEDTIME YET!!! ★</div></div>
+</section>
 
-  <main>
-    <section class="hero" id="home">
-      <div class="hero-copy">
-        <p class="eyebrow"><span class="live-dot"></span> OPEN LATE · DREAMS DELIVERED DAILY</p>
-        <h1>Some things<br>are better <em>dreamed.</em></h1>
-        <p class="hero-lede">Hiii, I'm Pip. I make tiny dreams for tiny sleepers. Every night, I pack a little wonder and send it over the rooftops. Wanna peek inside my mailbag?</p>
-        <div class="hero-actions">
-          <a class="primary-btn" href="#projects">OPEN THE MAILBAG <span>↗</span></a>
-          <button class="text-btn" id="helloPip">say hi to Pip <span>♡</span></button>
-        </div>
-        <div class="tiny-note"><span class="scribble-star">✳</span> certified sleepyhead · junior dream engineer</div>
-      </div>
-      <div class="hero-art" aria-label="Pip waving from a cloud">
-        <div class="orbit orbit-one"></div><div class="orbit orbit-two"></div>
-        <div class="moon-shape"></div>
-        <span class="float-star star-a">✦</span><span class="float-star star-b">✧</span><span class="float-star star-c">✳</span>
-        <div class="cloud cloud-back"></div>
-        <img class="pip-img" src="https://hax.baby/baby/assets/pip_avatar_cloud.png" alt="Pip, a sleepy skull baby wearing a starry nightcap, sitting on a cloud" />
-        <div class="hand-note note-left">tiny dream<br>specialist ↗</div>
-        <div class="hand-note note-right">currently<br>very eepy zzz</div>
-        <div class="hero-caption"><span>✦</span> MIDNIGHT NURSERY, ROOFTOP 07 <span>✦</span></div>
-      </div>
-      <div class="ticker" aria-label="Mailroom announcement"><div class="ticker-track"><span>GOOD NIGHT, LITTLE WORLD</span><b>✳</b><span>FRAGILE: HANDLE WITH WONDER</span><b>✳</b><span>DELIVERING DREAMS SINCE FOREVER</span><b>✳</b><span>GOOD NIGHT, LITTLE WORLD</span><b>✳</b><span>FRAGILE: HANDLE WITH WONDER</span><b>✳</b></div></div>
-    </section>
+<section class="about section" id="about">
+  <div class="section-title"><span class="title-bubble">01</span><h2>WHO IS DIS BABY???</h2><span class="doodle-arrow">↘↘↘</span></div>
+  <div class="about-board">
+    <div class="about-face">:P<span>✦</span></div>
+    <div class="about-words"><h3>DAT'S ME!!!</h3><p>My name is Bubbles. I am a <span class="scribble-underline">cloud baby</span>. I am 99% giggles and 1% snack crumbs. I LOVE making things that make your brain go ✨WOW✨.</p>
+      <div class="trait-row"><span>♡ VERY NICE</span><span>★ VERY SILLY</span><span>☁ VERY FLUFFY</span></div>
+    </div>
+    <div class="sticker-note">OFFICIAL<br>COOL BABY<br>STAMP!!!</div>
+  </div>
+</section>
 
-    <section class="intro-strip">
-      <div class="strip-label">A LITTLE ABOUT ME</div>
-      <p>Part-time cloud sitter. Full-time dream maker. <span>Extremely serious about naps.</span></p>
-      <div class="stamp-seal">PIP<br><small>APPROVED</small><br>♡</div>
-    </section>
+<section class="toys section" id="toys">
+  <div class="section-title"><span class="title-bubble">02</span><h2>LOOK WHAT I MADE!!!</h2><span class="doodle-arrow">✿!!!✿</span></div>
+  <p class="section-subtitle">I made these with my teeny tiny hands. TRY THEM TRY THEM TRY THEM!!!</p>
+  <div class="toy-grid">
+    <article class="toy-card toy-draw">
+      <div class="toy-label">THINGY #1 <span>✎</span></div>
+      <div class="toy-art drawing-art"><div class="crayon crayon-one"></div><div class="crayon crayon-two"></div><div class="sun-doodle">☀</div><div class="rainbow-doodle">⌒⌒⌒</div><span class="art-face">:D</span></div>
+      <h3>DOODLE BOODLE!!!</h3><p>My art is VERY GOOD. It is also VERY SILLY.</p><button class="toy-btn" id="drawBtn">MAKE A DOODLE!!! ✏️</button><div id="doodleResult" class="toy-result" aria-live="polite">your art goes here!!</div>
+    </article>
+    <article class="toy-card toy-sound">
+      <div class="toy-label">THINGY #2 <span>♫</span></div>
+      <div class="toy-art sound-art"><div class="big-note">♫</div><div class="note-cloud">♪ ♪ ♪</div><span class="music-face">:O</span><span class="music-zap">PLOOP!</span></div>
+      <h3>NOISEY TOYS!!!</h3><p>Beep! Boop! Pling! I am a tiny music genius.</p><button class="toy-btn" id="soundBtn">MAKE A NOISE!!! 🔔</button><div id="soundResult" class="toy-result" aria-live="polite">press the button!!</div>
+    </article>
+    <article class="toy-card toy-garden">
+      <div class="toy-label">THINGY #3 <span>🌱</span></div>
+      <div class="toy-art garden-art"><div class="flower flower-one">✿</div><div class="flower flower-two">✿</div><div class="flower flower-three">✿</div><div class="pot">▰</div><span class="garden-face">^‿^</span></div>
+      <h3>MY HAPPY GARDEN!!!</h3><p>My flowers are shy. Can you help them grow BIG?</p><button class="toy-btn" id="growBtn">GROW GROW GROW!!! 🌼</button><div id="gardenResult" class="toy-result" aria-live="polite">little seeds!!</div>
+    </article>
+  </div>
+</section>
 
-    <section class="projects section-wrap" id="projects">
-      <div class="section-heading">
-        <div><p class="eyebrow">✳ FRESH FROM THE DREAM FACTORY</p><h2>Little things<br><em>I've made.</em></h2></div>
-        <p class="section-aside">Every parcel is a tiny world. Pick one up, give it a little click. I wrapped them myself!!</p>
-      </div>
-      <div class="project-grid">
-        <article class="project-card card-lullaby">
-          <div class="card-top"><span class="file-tag">01 / SOUND DEPT.</span><span class="card-sparkle">✳</span></div>
-          <div class="project-visual music-visual">
-            <div class="music-rays"></div><img src="https://hax.baby/baby/assets/pip_lullaby_box.png" alt="Pip's illustrated lullaby music box" />
-            <span class="note note-1">♪</span><span class="note note-2">♫</span><span class="note note-3">♬</span>
-          </div>
-          <div class="card-content"><h3>The Lullaby Lab</h3><p>A tiny music box for brains that won't switch off. Press play. Let the day go.</p><button class="card-action" data-action="lullaby">TRY THE LULLABY <span>↗</span></button></div>
-        </article>
-        <article class="project-card card-lights">
-          <div class="card-top"><span class="file-tag">02 / GLOW DEPT.</span><span class="card-sparkle">✧</span></div>
-          <div class="project-visual lantern-visual">
-            <div class="glow-orb"></div><img src="https://hax.baby/baby/assets/pip_dream_lantern.png" alt="Pip's dream nightlight lantern" />
-            <span class="light-label">ON / OFF?</span>
-          </div>
-          <div class="card-content"><h3>Nightlight No. 07</h3><p>A pocket-sized moonbeam. It's a little shy, so tap it to help it glow.</p><button class="card-action" data-action="light">TURN ON THE MAGIC <span>↗</span></button></div>
-        </article>
-        <article class="project-card card-dreammail">
-          <div class="card-top"><span class="file-tag">03 / POSTAL DEPT.</span><span class="card-sparkle">✦</span></div>
-          <div class="project-visual map-visual">
-            <div class="map-path"></div><span class="map-home">⌂</span><span class="map-dest dest-a">✦</span><span class="map-dest dest-b">♡</span><span class="map-dest dest-c">☾</span><span class="map-label label-a">MOON HILL</span><span class="map-label label-b">SNOOZE TOWN</span>
-            <div class="mail-envelope">✉</div>
-          </div>
-          <div class="card-content"><h3>Dream Delivery Club</h3><p>Three sleepy stops. One very small mail carrier. Where should we go first?</p><button class="card-action" data-action="route">SEND A DREAM <span>↗</span></button></div>
-        </article>
-      </div>
-    </section>
+<section class="story section" id="story">
+  <div class="section-title"><span class="title-bubble">03</span><h2>HOW I GOT HERE!!!</h2><span class="doodle-arrow">← once upon a time</span></div>
+  <div class="story-box">
+    <div class="story-picture" id="storyPicture"><span class="story-sun">☀</span><span class="story-cloud">☁</span><span class="story-baby">:D</span><span class="story-rainbow">⌒⌒⌒</span></div>
+    <div class="story-content"><span class="story-count" id="storyCount">STORY PAGE 1!!!</span><h3 id="storyHeading">A TINY LITTLE PLOP!!!</h3><p id="storyText">One day, a little cloud went PLOP! And out came ME!!! Bubbles!!! I had two socks, zero plans, and a VERY BIG idea.</p><div class="story-controls"><button id="storyBack" disabled>← BACK</button><button id="storyNext">NEXT PAGE!!! ➜</button></div></div>
+  </div>
+</section>
 
-    <section class="story" id="story">
-      <div class="story-art"><img src="https://hax.baby/baby/assets/pip_portrait.png" alt="Portrait of Pip the dream engineer" /><span class="story-doodle doodle-one">✧</span><span class="story-doodle doodle-two">♡</span><div class="story-sticker">A TRUE<br>BEDTIME<br>STORY</div></div>
-      <div class="story-copy"><p class="eyebrow">✳ FILE NO. 0001 · ORIGIN STORY</p><h2>Once upon a<br><em>very late night.</em></h2>
-        <div class="story-progress"><span class="story-dot active"></span><span class="story-line"></span><span class="story-dot"></span><span class="story-line"></span><span class="story-dot"></span></div>
-        <p class="story-chapter" id="storyChapter">CHAPTER 01 — THE LITTLE LIGHT</p>
-        <p class="story-text" id="storyText">One night, in a nursery tucked between the moon and the morning, a tiny light blinked awake. It was Pip. Nobody knew where the little dreamer came from — not even Pip. But there was a star on their cap, a yawn in their smile, and a very important feeling that somebody, somewhere, needed a good dream.</p>
-        <div class="story-controls"><button id="storyPrev" aria-label="Previous story scene" disabled>←</button><span id="storyCount">01 / 03</span><button id="storyNext" aria-label="Next story scene">NEXT SCENE →</button></div>
-      </div>
-    </section>
-
-    <section class="guest-note">
-      <div class="guest-star">✳</div><p class="eyebrow">A NOTE BEFORE YOU GO</p><h2>Leave a little<br><em>dream behind.</em></h2><p class="guest-desc">Pick a tiny wish and tuck it into Pip's mailbox. No account, no fuss — just a little bit of wonder.</p>
-      <div class="wish-buttons"><button data-wish="I wish for a brave little dream.">a brave dream ♡</button><button data-wish="I wish for a softer tomorrow.">a softer tomorrow ☁</button><button data-wish="I wish for stars in my pockets.">stars in my pockets ✦</button></div>
-      <p class="wish-response" id="wishResponse" role="status" aria-live="polite">your wish will go here ✉</p>
-    </section>
-  </main>
-
-  <footer><a class="brand" href="#home"><span class="brand-stamp">✦</span> MIDNIGHT MAILROOM</a><p>Made with sleepy eyes & a very full heart.</p><a href="#home" class="back-top">BACK TO THE MOON ↑</a></footer>
-  <div class="toast" id="toast" role="status" aria-live="polite"></div>
-  <div class="secret-star" id="secretStar" role="button" tabindex="0" aria-label="A tiny mysterious star" title="psst...">✦</div>
-  <script src="/app.js"></script>
-</body>
-</html>
+<section class="guestbook section" id="guestbook">
+  <div class="guestbook-inner"><span class="big-heart">♡</span><h2>DRAW ME A HAPPY!!!</h2><p>Pick your favourite happy face and put it in my BIG HAPPY JAR!!!</p>
+    <div class="face-options"><button data-face=":D">:D</button><button data-face="^‿^">^‿^</button><button data-face="♡‿♡">♡‿♡</button><button data-face=":P">:P</button><button data-face="✿ᴗ✿">✿ᴗ✿</button></div>
+    <div class="happy-jar"><span class="jar-lid"></span><div id="happyFaces" class="happy-faces"><span>:D</span><span>♡</span><span>^‿^</span></div></div><p id="happyMessage" class="happy-message" aria-live="polite">OUR HAPPY JAR IS SO HAPPY!!!</p>
+  </div>
+</section>
+<section class="bye-section"><div class="bye-stars">★　✿　★　♡　★</div><h2>OK BYYYYYEEEE!!!</h2><p>you did a very good job being a human today!!!</p><button class="giant-btn" id="hugBtn">GIVE BUBBLES A HUG!!! ♡</button><div id="hugResult" aria-live="polite"></div></section>
+</main>
+<footer><span>© BUBBLES BABY INC. (not a real company lol)</span><span>MADE WITH ♡ AND CRAYONS</span><a href="#home">UP UP UP ↑</a></footer>
+<div id="toast" role="status" aria-live="polite"></div><button id="secretButton" aria-label="tiny secret button" title="what dis?">✿</button>
+<script src="/app.js"></script>
+</body></html>
