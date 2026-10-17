@@ -65,6 +65,27 @@ $("#storyBack").addEventListener("click",()=>{if(page>0)page--;renderPage()});$(
 
 const happyFaces=$("#happyFaces");$$("[data-face]").forEach(btn=>btn.addEventListener("click",()=>{const span=document.createElement("span");span.textContent=btn.dataset.face;span.style.color=["#ff5b9b","#7a3d88","#368ab1"][Math.floor(Math.random()*3)];happyFaces.appendChild(span);if(happyFaces.children.length>14)happyFaces.firstElementChild.remove();$("#happyMessage").textContent="YAY!!! "+btn.dataset.face+" IS IN THE HAPPY JAR!!!";beep(680);}));
 $("#hugBtn").addEventListener("click",()=>{$("#hugResult").textContent="BIG SQUISHY HUGGGGG!!! 🤗♡🤗";beep(520);setTimeout(()=>beep(740),140);});
+const babyFortunes=[
+ {title:"A SNACK IS IN YOUR FUTURE.",note:"THE COOKIE KNOWS. THE COOKIE ALWAYS KNOWS. 🍪"},
+ {title:"YOU WILL FIND A TINY TREASURE.",note:"IT MAY BE A COIN. IT MAY BE A CRUMB. VALUE IS A SOCIAL CONSTRUCT. ✨"},
+ {title:"SOMEONE THINKS YOU ARE COOL.",note:"IT IS BUBBLES. BUBBLES IS SOMEONE. 💖"},
+ {title:"TODAY IS A GOOD DAY TO WIGGLE.",note:"WIGGLE FIRST. ASK QUESTIONS NEVER. 🕺"},
+ {title:"YOUR BRAIN CELL WILL RETURN.",note:"IT WENT TO BUY MILK. IT WILL BE BACK. 🧠"},
+ {title:"A BIG GIGGLE IS APPROACHING.",note:"PROBABLY AT A VERY INCONVENIENT TIME. 🤭"},
+ {title:"YOU ARE 100% LITTLE LEGEND.",note:"OFFICIAL STAMP. NO APPEALS. 👑"},
+ {title:"A CLOUD IS ROOTING FOR YOU.",note:"THAT CLOUD IS ME. I AM VERY SOFT. ☁️"},
+ {title:"YOU SHALL CONQUER A SOCK.",note:"THE LEFT ONE. THE RIGHT ONE REMAINS MYSTERIOUS. 🧦"},
+ {title:"YOUR VIBE IS SPARKLY SOUP.",note:"NOBODY KNOWS WHAT THAT MEANS. IT IS A COMPLIMENT. 🪩"},
+ {title:"A SURPRISE WILL GO PLOP.",note:"KEEP YOUR EYES OPEN AND YOUR SNACKS CLOSER. 🌈"},
+ {title:"YOU DESERVE A LITTLE REST.",note:"EVEN LEGENDS NEED A NAP. ZZZ... 🌙"}
+];
+$("#fortuneBtn").addEventListener("click",()=>{
+ const paper=$("#fortunePaper"),pick=babyFortunes[Math.floor(Math.random()*babyFortunes.length)];
+ paper.classList.remove("fortune-pop");void paper.offsetWidth;paper.classList.add("fortune-pop");
+ paper.innerHTML="<span>THE CLOUDS HAVE SPOKEN!!!</span><strong>"+pick.title+"</strong><small>"+pick.note+"</small>";
+ $("#fortuneStatus").textContent=["THE PROPHECY IS PROBABLY ACCURATE!!!","BUBBLES CONSULTED ONE (1) CRAYON.","THE FUTURE SMELLS LIKE BISCUITS.","DO NOT QUESTION THE MAGIC CLOUD."][Math.floor(Math.random()*4)];
+ beep(620,.14);setTimeout(()=>beep(850,.16),100);if(typeof scorePoint==="function")scorePoint(1);
+});
 let secrets=0;function secretClick(){secrets++;const secret=$("#secretButton");if(secrets<5){secret.animate([{transform:"scale(1) rotate(0)"},{transform:"scale(1.35) rotate(20deg)"},{transform:"scale(1) rotate(0)"}],{duration:350});say(["teehee...","wrong flower!!!","getting warmer!!!","ONE MORE!!!"][secrets-1]);beep(400+secrets*70)}else{say("SECRET UNLOCKED!!! BUBBLES THINKS YOU ARE THE BEST BABY EVER!!! ♡");secret.textContent="♡";secret.classList.add("secret-unlocked");secret.setAttribute("aria-label","Secret unlocked! You are Bubbles' best baby ever");secret.title="YOU FOUND THE SECRET!!!";const note=document.createElement("div");note.id="secretNote";note.setAttribute("role","status");note.innerHTML="<strong>YOU FOUND MY SECRET!!! ♡</strong><span>YOU ARE BUBBLES' BEST BABY EVER!!!</span><span>🌈 ⭐ 🌼 THANK YOU FOR PLAYING!!! 🌼 ⭐ 🌈</span>";document.body.appendChild(note);for(let i=0;i<22;i++)setTimeout(()=>shoutAt(Math.random()*window.innerWidth,Math.random()*window.innerHeight),i*45);[523,659,784,1046].forEach((f,i)=>setTimeout(()=>beep(f,.24),i*130));secret.removeEventListener("click",secretClick)}}$("#secretButton").addEventListener("click",secretClick);
 renderPage();
 
