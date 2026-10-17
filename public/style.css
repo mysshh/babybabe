@@ -57,3 +57,41 @@ body.night-mode .story-scroll-meter>div{background:#19172a}
 body.night-mode .theme-btn{background:#ffe49b;color:#33274b}
 @media(max-width:700px){.header-controls{gap:5px}.header-controls .sound-btn{font-size:10px;padding:9px 7px}.story-scroll-meter{align-items:flex-start;flex-direction:column;gap:8px}.story-scroll-meter>div{width:100%;flex:none}}@media(max-width:420px){.header-middle{display:none}.baby-header{gap:8px}.header-controls{margin-left:auto}.header-controls .sound-btn{font-size:9px;padding:8px 6px}}
 @media(prefers-reduced-motion:reduce){.cursor-sparkle{display:none}}
+/* Night mode v2: coordinated midnight palette with readable cards and controls. */
+body.night-mode{--yellow:#211b35;--pink:#45304f;--hot:#ff8fc2;--blue:#273d59;--blue2:#292642;--green:#34483f;--purple:#393052;--orange:#72513e;--ink:#fff3d8;--paper:#302943;background:#211b35;color:#fff3d8}
+body.night-mode .baby-header{background:#382644;border-color:#fff0c9}
+body.night-mode .logo,body.night-mode .header-middle,body.night-mode .baby-talk,body.night-mode .scribble,body.night-mode .character-hint,body.night-mode .section-title h2,body.night-mode .section-subtitle,body.night-mode .about-words,body.night-mode .about-words p,body.night-mode .about-words h3,body.night-mode .toy-card h3,body.night-mode .toy-card p,body.night-mode .story-content,body.night-mode .story-content p,body.night-mode .story-content h3,body.night-mode .guestbook h2,body.night-mode .guestbook p,body.night-mode .bye-section h2,body.night-mode .bye-section p{color:#fff3d8}
+body.night-mode .hero,body.night-mode .bye-section{background:#211b35}
+body.night-mode .about,body.night-mode .guestbook{background:#292642;border-color:#fff0c9}
+body.night-mode .toys{background:#392741;border-color:#fff0c9}
+body.night-mode .story{background:#302744;border-color:#fff0c9}
+body.night-mode .about-board,body.night-mode .toy-card,body.night-mode .story-box,body.night-mode .guestbook-inner,body.night-mode .evolution-meter{background:#302943;color:#fff3d8;border-color:#fff0c9;box-shadow:6px 6px 0 #100d1d}
+body.night-mode .tiny-label,body.night-mode .plain-btn,body.night-mode .playroom-instructions,body.night-mode .playroom-message{background:#fff0c9;color:#30213e;border-color:#171126}
+body.night-mode .sunburst{background-color:#493453;border-color:#fff0c9;box-shadow:8px 8px 0 #100d1d}
+body.night-mode .logo-face,body.night-mode .title-bubble,body.night-mode .about-face,body.night-mode .sticker-note{background:#493453;color:#fff3d8;border-color:#fff0c9}
+body.night-mode .story-picture{background:#243f59;border-color:#fff0c9}
+body.night-mode .story-baby{background:#633954;border-color:#fff0c9;box-shadow:5px 5px 0 #100d1d}
+body.night-mode .story-count{background:#493453;color:#fff3d8;border-color:#fff0c9}
+body.night-mode .story-controls button,body.night-mode .toy-btn,body.night-mode .face-options button{background:#493453;color:#fff3d8;border-color:#fff0c9;box-shadow:3px 3px 0 #100d1d}
+body.night-mode .toy-art{border-color:#fff0c9}
+body.night-mode .playroom{background:#283b39}
+body.night-mode .playroom-board{background:#302943;border-color:#fff0c9;box-shadow:8px 8px 0 #100d1d}
+body.night-mode .playroom-stage{background-color:#292642;background-image:radial-gradient(#7d527f 2px,transparent 2.5px),radial-gradient(#355f78 2px,transparent 2.5px)}
+body.night-mode .playroom-top{background:#171326;color:#fff3d8}
+body.night-mode .playroom-bottom{background:#45304f;color:#fff3d8;border-color:#fff0c9}
+body.night-mode .draggable-toy{background:#45304f;border-color:#fff0c9;box-shadow:3px 3px 0 #100d1d}
+body.night-mode .playroom-baby{color:#ff9acb;text-shadow:3px 3px #100d1d}
+body.night-mode .playroom-baby span{background:#8f3e70;color:#fff}
+body.night-mode .chaos-button{background:#b83e79;color:#fff;border-color:#fff0c9;box-shadow:5px 5px #100d1d}
+body.night-mode .evolution-copy p,body.night-mode .evolution-copy strong,body.night-mode .evolution-label,body.night-mode .evolution-track span{color:#fff3d8}
+body.night-mode .evolution-track{background:#171326;border-color:#fff0c9}
+body.night-mode .party-finale{background:#633954;border-color:#fff0c9;box-shadow:8px 8px #100d1d}
+body.night-mode .party-finale h3{color:#fff3d8;text-shadow:3px 3px #b83e79}
+body.night-mode .party-finale p{color:#fff3d8}
+body.night-mode footer{background:#120f20;color:#fff3d8}
+body.night-mode footer a{color:#ffcf83}
+body.night-mode #secretButton{background:#493453;color:#fff3d8;border-color:#fff0c9}
+body.night-mode .story-scroll-meter{background:#302943;color:#fff3d8;border-color:#fff0c9;box-shadow:4px 4px #100d1d}
+body.night-mode .story-scroll-meter>div{background:#171326;border-color:#fff0c9}
+body.night-mode .theme-btn{background:#ffe49b;color:#33274b;border-color:#fff0c9}
+@media(prefers-reduced-motion:reduce){body.night-mode *{transition:none!important}}
