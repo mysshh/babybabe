@@ -5,7 +5,7 @@
 <title>HIIII!!! Welcome to Baby World!!!</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Comic+Neue:wght@700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/style.css?v=21">
+<link rel="stylesheet" href="/style.css?v=22">
 </head>
 <body>
 <div class="confetti-bg" aria-hidden="true">✿　★　♡　✦　☁　★　✿　♡　✦　★　☁　♡</div>
@@ -80,6 +80,20 @@
 
 <section class="playroom section" id="playroom"><div class="section-title"><span class="title-bubble">!!!</span><h2>THE BIG BABY PLAYROOM!!!</h2><span class="doodle-arrow">NO RULES!!!</span></div><p class="section-subtitle">PICK UP THE STICKERS!!! BOOP THE BUTTON!!! MAKE A MESS!!! THIS IS YOURS!!!</p><div class="playroom-board"><div class="playroom-top"><span>★ BUBBLES OS v1. BABY EDITION ★</span><button type="button" id="responsiveChaosToggle" class="responsive-chaos-toggle" aria-pressed="false">🌪️ CHAOS MODE: OFF</button><span id="playScore">HAPPY POINTS: 000</span></div><div class="playroom-stage" id="playroomStage"><div class="playroom-instructions">DRAG THESE!!!<br>OR TAP THEM!!!</div><button class="draggable-toy toy-rainbow" data-toy="🌈" aria-label="Play with rainbow">🌈</button><button class="draggable-toy toy-star" data-toy="⭐" aria-label="Play with star">⭐</button><button class="draggable-toy toy-heart" data-toy="💖" aria-label="Play with heart">💖</button><button class="draggable-toy toy-duck" data-toy="🐥" aria-label="Play with duck">🐥</button><button class="draggable-toy toy-flower" data-toy="🌼" aria-label="Play with flower">🌼</button><button class="draggable-toy toy-cloud" data-toy="☁️" aria-label="Play with cloud">☁️</button><div class="playroom-baby">૮ ˶ᵔ ᵕ ᵔ˶ ა<br><span>PLAY WITH ME!!!</span></div><button id="chaosBtn" class="chaos-button">PRESS FOR CHAOS!!! 💥</button><div id="playroomMessage" class="playroom-message" aria-live="polite">EVERYTHING IS A TOY HERE!!!</div></div><div class="playroom-bottom"><span>✿ MADE OF GIGGLES ✿</span><span>NO WRONG ANSWERS!!!</span><span>♥ PLAY NICE ♥</span></div></div><div class="evolution-meter" aria-live="polite"><div class="evolution-copy"><span class="evolution-label">BUBBLES' HAPPY METER!!!</span><strong id="evolutionTitle">TINY BABY MODE!!!</strong><p id="evolutionHint">Play with the toys to fill up my giggle tank!!!</p></div><div class="evolution-track"><div id="evolutionFill" class="evolution-fill"></div><span>0</span><span>100</span></div><div id="evolutionFace" class="evolution-face" aria-hidden="true">૮ ˶ᵔ ᵕ ᵔ˶ ა</div></div><div id="partyFinale" class="party-finale" aria-live="polite"><div class="party-confetti" aria-hidden="true">🎉 ✨ 🎂 🌈 💖 🎈 ⭐ 🫧</div><h3>HAPPY BIRTHDAY, EVERYBABYYYY!!!</h3><p>YOU MADE THE WHOLE WORLD GIGGLE!!!</p><button id="partyAgainBtn" type="button">DO THE PARTY AGAIN!!! 🎊</button></div></section>
 
+<section class="arcade section" id="arcade">
+  <div class="section-title"><span class="title-bubble">04</span><h2>BABY ARCADE!!!</h2><span class="doodle-arrow">VERY SERIOUS GAMES!!!</span></div>
+  <p class="section-subtitle">BUBBLES HAS ONE BRAIN CELL AND IT IS YOUR TURN TO BORROW IT!!!</p>
+  <div class="arcade-cabinet">
+    <div class="arcade-marquee">🎮 THE GREAT SNACK PANIC!!! 🍪 <span>INSERT 0 COINS!!!</span></div>
+    <div class="arcade-instructions"><b>MISSION:</b> CATCH THE SNACKS!!! 🍓🍪<br><small>AVOID THE STINKY SOCKS!!! 🧦 THEY HAVE LORE.</small></div>
+    <div class="arcade-stats"><span id="arcadeScore">SNACKS: 0</span><span id="arcadeTime">TIME: 20</span><span id="arcadeRank">RANK: POTATO</span></div>
+    <div class="arcade-arena" id="arcadeArena" aria-label="Snack-catching mini game">
+      <div class="arcade-idle" id="arcadeIdle"><div>🍪</div><strong>THE SNACKS ARE ESCAPING!!!</strong><p>Catch the snacks. Tap the socks and lose points. This is legally a sport.</p></div>
+    </div>
+    <div class="arcade-footer"><button type="button" id="arcadeStart">START THE SNACK EMERGENCY!!! 🚨</button><p id="arcadeStatus" aria-live="polite">20 seconds. Zero dignity. Infinite crumbs.</p></div>
+  </div>
+</section>
+
 <section class="story section" id="story">
   <div class="section-title"><span class="title-bubble">03</span><h2>HOW I GOT HERE!!!</h2><span class="doodle-arrow">← once upon a time</span></div>
   <div class="story-scroll-meter" aria-label="Story scroll progress"><span>SCROLL THROUGH MY LIL STORY!!! ↓</span><div><i id="storyScrollFill"></i></div></div><div class="story-box">
@@ -98,5 +112,5 @@
 </main>
 <div id="sleepMode" class="sleep-mode" aria-hidden="true"><div class="sleep-scrim"></div><section class="sleep-room" role="dialog" aria-modal="true" aria-labelledby="sleepRoomTitle"><button id="sleepClose" class="sleep-close" type="button" aria-label="Close sleepy night mode">✕ WAKE UP</button><div class="sleep-window" aria-hidden="true"><span class="sleep-window-moon">☾</span><span class="sleep-window-star one">✦</span><span class="sleep-window-star two">✧</span><span class="sleep-window-star three">★</span><span class="sleep-window-cloud">☁</span></div><div class="sleep-room-wall"><span class="sleep-wall-star">✦</span><span class="sleep-wall-heart">♡</span><div class="sleep-shelf"><span>🧸</span><span>📚</span><span>🌙</span></div><div class="sleep-bed"><div class="sleep-pillow"></div><div class="sleep-blanket"></div><div class="sleep-bubbles-baby"><div class="sleep-baby-hair"></div><div class="sleep-baby-face"><i></i><i></i><b></b></div><div class="sleep-baby-body"></div><span class="sleep-zs">z z Z</span></div><div class="sleep-bed-foot"></div></div></div><div class="sleep-caption"><span>☾ BUBBLES’ DREAM ROOM ☾</span><h2 id="sleepRoomTitle">SHHHH... BABY IS SLEEPING</h2><p id="sleepRoomStatus">A tiny lullaby for a tiny cloud baby. Let the stars keep watch. ♡</p><button id="sleepToggleMusic" type="button">Ⅱ PAUSE LULLABY</button></div></section></div>\n<footer><span>© BUBBLES BABY INC. (not a real company lol)</span><span>MADE WITH ♡ AND CRAYONS</span><span id="visitCounter" aria-live="polite">BABIES VISITED: 0001</span><a href="#home">UP UP UP ↑</a></footer>
 <div id="toast" role="status" aria-live="polite"></div><button id="secretButton" aria-label="tiny secret button" title="what dis?">✿</button>
-<script src="/app.js?v=23"></script>
+<script src="/app.js?v=24"></script>
 </body></html>
