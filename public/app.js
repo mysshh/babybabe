@@ -104,12 +104,57 @@ function closeSleepMode(){const el=$("#sleepMode");if(!el)return;el.classList.re
 $("#sleepClose").addEventListener("click",closeSleepMode);
 $("#sleepToggleMusic").addEventListener("click",()=>{if(lullabyPlaying){stopLullaby();$("#sleepToggleMusic").textContent="▶ PLAY LULLABY";$("#sleepRoomStatus").textContent="The music box is resting. Sweet dreams, Bubbles."}else{$("#lullabyPlay").click();$("#sleepToggleMusic").textContent="Ⅱ PAUSE LULLABY"}});
 document.addEventListener("keydown",e=>{if(e.key==="Escape"&&$("#sleepMode").classList.contains("is-open"))closeSleepMode()});
-// Lullaby Lab: gentle synthesized music-box melodies with an independent mute switch.
-const lullabyTunes={moon:{title:"MOONBEAM MILK!!!",notes:[[523.25,.42],[659.25,.42],[783.99,.58],[659.25,.42],[587.33,.42],[523.25,.72],[392,.48],[523.25,.85]]},cloud:{title:"CLOUDY CUDDLES!!!",notes:[[392,.42],[523.25,.42],[659.25,.58],[587.33,.42],[523.25,.42],[440,.7],[392,.45],[440,.85]]},star:{title:"SLEEPY STARDUST!!!",notes:[[659.25,.36],[783.99,.36],[987.77,.58],[783.99,.36],[659.25,.48],[587.33,.48],[523.25,.78],[587.33,.85]]}};
-let selectedLullaby="moon",lullabyTimer=null,lullabyMuted=false,lullabyPlaying=false,lullabyRun=0;
-function stopLullaby(showMessage=true){lullabyRun++;if(lullabyTimer)clearTimeout(lullabyTimer);lullabyTimer=null;lullabyPlaying=false;const b=$("#lullabyPlay");if(b){b.textContent="▶ PLAY LULLABY";b.setAttribute("aria-pressed","false")}if(showMessage)$("#lullabyStatus").textContent=lullabyMuted?"Muted for quiet dreams.":"The music box is resting. Pick a tune for another little dream."}
-function playLullabyNote(freq,duration,when){if(lullabyMuted||!soundEnabled)return;try{const AC=window.AudioContext||window.webkitAudioContext;if(!AC)return;audioContext ||=new AC();if(audioContext.state==="suspended")audioContext.resume();const o=audioContext.createOscillator(),g=audioContext.createGain();o.type="sine";o.frequency.setValueAtTime(freq,when);g.gain.setValueAtTime(.0001,when);g.gain.exponentialRampToValueAtTime(.045,when+.025);g.gain.exponentialRampToValueAtTime(.0001,when+duration);o.connect(g);g.connect(audioContext.destination);o.start(when);o.stop(when+duration+.03);const shimmer=audioContext.createOscillator(),sg=audioContext.createGain();shimmer.type="sine";shimmer.frequency.setValueAtTime(freq*2,when);sg.gain.setValueAtTime(.0001,when);sg.gain.exponentialRampToValueAtTime(.009,when+.03);sg.gain.exponentialRampToValueAtTime(.0001,when+duration*.7);shimmer.connect(sg);sg.connect(audioContext.destination);shimmer.start(when);shimmer.stop(when+duration*.75)}catch(e){}}
-function runLullaby(){const run=++lullabyRun,tune=lullabyTunes[selectedLullaby];if(!lullabyMuted&&soundEnabled){const AC=window.AudioContext||window.webkitAudioContext;if(AC){audioContext ||=new AC();if(audioContext.state==="suspended")audioContext.resume()}}const start=audioContext?audioContext.currentTime+.08:0;let offset=0;tune.notes.forEach(([freq,dur])=>{playLullabyNote(freq,dur,start+offset);offset+=dur*.82});lullabyTimer=setTimeout(()=>{if(run===lullabyRun&&lullabyPlaying)runLullaby()},offset*1000+450)}
-$("#lullabyPlay").addEventListener("click",async()=>{if(lullabyPlaying){stopLullaby();closeSleepMode();return}if(!lullabyMuted&&soundEnabled){const AC=window.AudioContext||window.webkitAudioContext;if(AC){audioContext ||=new AC();if(audioContext.state==="suspended"){try{await audioContext.resume()}catch(e){}}}}lullabyPlaying=true;$("#lullabyPlay").textContent="Ⅱ PAUSE LULLABY";$("#lullabyPlay").setAttribute("aria-pressed","true");$("#lullabyStatus").textContent=lullabyMuted||!soundEnabled?"The lullaby is ready, but sound is muted.":"Sweet little dreams... let the music box twinkle.";openSleepMode();runLullaby()});
-$("#lullabyMute").addEventListener("click",()=>{lullabyMuted=!lullabyMuted;const b=$("#lullabyMute");b.textContent=lullabyMuted?"🔇 MUTED":"🔊 SOUND ON";b.setAttribute("aria-pressed",String(lullabyMuted));$("#lullabyStatus").textContent=lullabyMuted?"Shhh... the lullaby is muted.":"Sound is back. Sweet dreams, tiny friend."});
-$$(".lullaby-pick").forEach(btn=>btn.addEventListener("click",()=>{selectedLullaby=btn.dataset.tune;$$(".lullaby-pick").forEach(b=>{const active=b===btn;b.classList.toggle("active",active);b.setAttribute("aria-pressed",String(active))});$("#lullabyTitle").textContent=lullabyTunes[selectedLullaby].title;if(lullabyPlaying){stopLullaby(false);lullabyPlaying=true;$("#lullabyPlay").textContent="Ⅱ PAUSE LULLABY";$("#lullabyPlay").setAttribute("aria-pressed","true");runLullaby()}else $("#lullabyStatus").textContent="A new tiny dream is ready. Press play when you're cozy."}));
+// Lullaby Lab: play the three original, unmodified audio files.
+const lullabyTunes={
+  moon:{title:"TWILIGHT FOREST LULLABY",src:"/audio/twilight-forest-lullaby.mp3"},
+  cloud:{title:"GENTLE OCEAN DRIFT",src:"/audio/gentle-ocean-drift.mp3"},
+  star:{title:"SWEET LULLABY (WITH VOCALS)",src:"/audio/sweet-lullaby-with-vocals.mp3"}
+};
+let selectedLullaby="moon",lullabyMuted=false,lullabyPlaying=false;
+const lullabyAudio=new Audio();
+lullabyAudio.preload="auto";
+lullabyAudio.loop=true;
+lullabyAudio.src=lullabyTunes[selectedLullaby].src;
+function syncLullabyButtons(){
+ const b=$("#lullabyPlay");if(b){b.textContent=lullabyPlaying?"Ⅱ PAUSE LULLABY":"▶ PLAY LULLABY";b.setAttribute("aria-pressed",String(lullabyPlaying))}
+ const sb=$("#sleepToggleMusic");if(sb)sb.textContent=lullabyPlaying?"Ⅱ PAUSE LULLABY":"▶ PLAY LULLABY";
+}
+function stopLullaby(showMessage=true){
+ lullabyAudio.pause();lullabyPlaying=false;syncLullabyButtons();
+ if(showMessage)$("#lullabyStatus").textContent=lullabyMuted?"Muted for quiet dreams.":"The lullaby is resting. Pick a track for another little dream.";
+}
+async function startLullaby(){
+ try{
+  lullabyAudio.src=lullabyTunes[selectedLullaby].src;
+  lullabyAudio.loop=true;lullabyAudio.muted=lullabyMuted;
+  await lullabyAudio.play();lullabyPlaying=true;syncLullabyButtons();
+  $("#lullabyStatus").textContent="Playing your original recording. Sweet dreams. ♡";
+  $("#sleepRoomStatus").textContent="Your lullaby is playing. Let the stars keep watch. ♡";
+ }catch(e){
+  lullabyPlaying=false;syncLullabyButtons();
+  $("#lullabyStatus").textContent="The audio couldn't start. Press play again, or check that sound is enabled.";
+  $("#sleepRoomStatus").textContent="Tap play once more to start the lullaby.";
+ }
+}
+$("#lullabyPlay").addEventListener("click",async()=>{
+ if(lullabyPlaying){stopLullaby();closeSleepMode();return}
+ openSleepMode();await startLullaby();
+});
+$("#lullabyMute").addEventListener("click",()=>{
+ lullabyMuted=!lullabyMuted;lullabyAudio.muted=lullabyMuted;
+ const b=$("#lullabyMute");b.textContent=lullabyMuted?"🔇 MUTED":"🔊 SOUND ON";b.setAttribute("aria-pressed",String(lullabyMuted));
+ $("#lullabyStatus").textContent=lullabyMuted?"Shhh... the lullaby is muted.":"Sound is back. Sweet dreams, tiny friend.";
+});
+$$(".lullaby-pick").forEach(btn=>btn.addEventListener("click",async()=>{
+ selectedLullaby=btn.dataset.tune;
+ $$(".lullaby-pick").forEach(b=>{const active=b===btn;b.classList.toggle("active",active);b.setAttribute("aria-pressed",String(active))});
+ $("#lullabyTitle").textContent=lullabyTunes[selectedLullaby].title;
+ lullabyAudio.pause();lullabyAudio.src=lullabyTunes[selectedLullaby].src;lullabyAudio.currentTime=0;
+ if(lullabyPlaying)await startLullaby();else $("#lullabyStatus").textContent="Track selected. Press play when you're cozy.";
+}));
+$("#sleepToggleMusic").addEventListener("click",async()=>{
+ if(lullabyPlaying){stopLullaby();$("#sleepRoomStatus").textContent="The lullaby is resting. Sweet dreams, Bubbles."}
+ else await startLullaby();
+});
+lullabyAudio.addEventListener("ended",()=>{lullabyPlaying=false;syncLullabyButtons()});
+lullabyAudio.addEventListener("error",()=>{lullabyPlaying=false;syncLullabyButtons();$("#lullabyStatus").textContent="Sorry, this audio file couldn't be loaded. Please try again."});
