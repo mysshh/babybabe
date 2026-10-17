@@ -122,5 +122,12 @@ body.night-mode .responsive-chaos-toggle[aria-pressed="true"]{background:#b83e79
 body.night-mode .playroom-stage.responsive-chaos{background-color:#292642;background-image:radial-gradient(#ff8fc2 3px,transparent 3.5px),radial-gradient(#8b5cf6 3px,transparent 3.5px)}
 @media(max-width:700px){.playroom-top{gap:8px}.responsive-chaos-toggle{font-size:10px;padding:7px 8px;white-space:normal;max-width:125px}.playroom-top>span:first-child{max-width:42%;line-height:1.2}.playroom-stage.responsive-chaos .draggable-toy{animation-duration:.65s}}
 @media(prefers-reduced-motion:reduce){.responsive-chaos-toggle[aria-pressed="true"],.playroom-stage.responsive-chaos,.playroom-stage.responsive-chaos .draggable-toy,.playroom-stage.responsive-chaos .playroom-baby{animation:none!important}}
+#secretButton.secret-unlocked{background:#ff5b9b;color:#fff;border-color:#fff0c9;transform:rotate(-12deg) scale(1.15);box-shadow:0 0 0 7px #ff5b9b33,4px 4px #100d1d}
+#secretNote{position:fixed;z-index:120;left:50%;top:50%;transform:translate(-50%,-50%);width:min(88vw,430px);padding:26px 22px;background:#fff0a3;color:#33274b;border:5px solid #33274b;border-radius:24px;box-shadow:10px 10px 0 #ff5b9b;text-align:center;display:grid;gap:12px;font-family:inherit;animation:secretNotePop .55s cubic-bezier(.2,1.8,.4,1) both}
+#secretNote strong{font-size:clamp(22px,5vw,32px);line-height:1.1}
+#secretNote span{font-weight:700;font-size:16px}
+@keyframes secretNotePop{from{opacity:0;scale:.5;rotate:-8deg}to{opacity:1;scale:1;rotate:0}}
+body.night-mode #secretNote{background:#493453;color:#fff3d8;border-color:#fff0c9;box-shadow:10px 10px 0 #ff5b9b}
+@media(prefers-reduced-motion:reduce){#secretNote{animation:none}}
 body.night-mode .theme-btn{background:#ffe49b;color:#33274b;border-color:#fff0c9}
 @media(prefers-reduced-motion:reduce){body.night-mode *{transition:none!important}}
