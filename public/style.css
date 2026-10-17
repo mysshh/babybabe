@@ -252,3 +252,58 @@ body.night-mode .dream-route-wrap{background:#302943;color:#fff3d8;border-color:
 body.night-mode .dream-route-shadow{stroke:#fff0c9;opacity:.18}
 @media(max-width:600px){.dream-route-wrap{padding:12px;border-width:3px}.dream-route{margin:22px 0}.dream-route-label{font-size:11px}.storybook-hint{font-size:11px}}
 @media(prefers-reduced-motion:reduce){#dreamFlashlight{transition:none}#storybook.page-turn-forward .story-picture,#storybook.page-turn-forward .story-content,#storybook.page-turn-back .story-picture,#storybook.page-turn-back .story-content{animation:none!important}.dream-envelope{transition:none}}
+
+/* Bubbles' chunky little storybook: pastel hard cover, visible spine, stitched edges and page stack. */
+#storybook{position:relative;isolation:isolate;display:grid;grid-template-columns:1fr 1fr;gap:0;padding:18px 18px 18px 27px;border:5px solid #33274b;border-radius:24px 30px 30px 22px;background:linear-gradient(90deg,#ff8fbd 0 17px,#ffb7d4 17px 23px,#fff7d8 23px 100%);box-shadow:9px 10px 0 #33274b,14px 15px 0 rgba(51,39,75,.14);transform:rotate(-.4deg);overflow:visible}
+#storybook::before{content:"";position:absolute;z-index:-1;inset:7px -9px -10px 12px;border:3px solid #33274b;border-radius:22px 28px 28px 20px;background:repeating-linear-gradient(0deg,#fffdf4 0 7px,#f7e9d7 7px 9px);box-shadow:4px 4px 0 #33274b}
+#storybook::after{content:"✿  BUBBLES' VERY SILLY BOOK  ✿";position:absolute;top:-20px;left:50%;transform:translateX(-50%) rotate(1deg);padding:7px 15px;background:#ffed7a;border:3px solid #33274b;border-radius:12px;box-shadow:3px 3px #33274b;font-size:clamp(10px,1.7vw,14px);font-weight:1000;white-space:nowrap;z-index:4}
+.storybook-cover-spine{position:absolute;left:16px;top:15px;bottom:15px;width:14px;border-radius:10px;background:repeating-linear-gradient(180deg,#ff5b9b 0 13px,#ffcae0 13px 22px);border:2px solid #33274b;z-index:3;box-shadow:2px 0 rgba(51,39,75,.2)}
+#storybook .story-picture{margin-left:8px;min-height:330px;border:4px solid #33274b;border-radius:8px 15px 15px 8px;background-image:radial-gradient(rgba(255,255,255,.75) 2px,transparent 3px);background-size:20px 20px;box-shadow:inset 4px 0 rgba(255,255,255,.7),4px 4px 0 #33274b}
+#storybook .story-content{min-width:0;position:relative;padding:24px 20px 18px 25px;border-left:3px solid #eadcc9;background:repeating-linear-gradient(0deg,#fffdf5 0 31px,#f2e8db 32px 33px);border-radius:0 12px 12px 0;box-shadow:inset 5px 0 #fff}
+#storybook .story-content::after{content:"♡";position:absolute;right:12px;top:8px;font-size:28px;color:#ff5b9b;transform:rotate(12deg)}
+#storybook .story-count{background:#c8f4ff;border-radius:9px;transform:rotate(-2deg);font-weight:1000}
+#storybook .story-content h3{padding-right:15px;text-shadow:2px 2px #ffdfec}
+#storybook .story-content p{min-height:112px}
+#storybook .story-controls button{border-radius:15px;background:#ffb7d4}
+#storybook .story-controls button:last-child{background:#baf48d}
+#storybook .story-controls button:disabled{opacity:.4}
+.story-scene{isolation:isolate}
+.story-scene .scene-sun,.story-scene .scene-cloud,.story-scene .scene-rainbow,.story-scene .scene-star{position:absolute;z-index:1;user-select:none}
+.story-scene .scene-sun{right:18px;top:15px;font-size:clamp(35px,6vw,65px);animation:sceneSun 4s ease-in-out infinite}
+.story-scene .scene-cloud{left:16px;bottom:35px;font-size:clamp(45px,7vw,80px);animation:sceneCloud 3.8s ease-in-out infinite}
+.story-scene .scene-rainbow{left:15%;top:23%;font-size:clamp(45px,7vw,72px);animation:sceneRainbow 3s ease-in-out infinite}
+.story-scene .scene-star{right:24%;bottom:30%;font-size:36px;color:#ffb52f;animation:sceneStar 1.5s ease-in-out infinite}
+.story-scene .story-baby{position:relative;z-index:2;animation:sceneBaby 1.8s ease-in-out infinite;box-shadow:5px 6px 0 #33274b}
+.story-scene .scene-caption{position:absolute;z-index:3;bottom:8px;left:8px;right:8px;text-align:center;padding:7px 6px;border:2px solid #33274b;border-radius:10px;background:#fffdf0;font-size:clamp(9px,1.6vw,13px);font-weight:1000;box-shadow:2px 2px #33274b}
+.scene-plop .story-baby{background:#ffd0df}
+.scene-giggle .story-baby{background:#fff0a6;animation:sceneHop 1s ease-in-out infinite}
+.scene-giggle .scene-rainbow{font-size:clamp(60px,10vw,100px);top:15%;left:10%}
+.scene-website .story-baby{background:#c5b1ff;animation:sceneComputer 2.4s ease-in-out infinite}
+.scene-website .scene-rainbow{top:25%;left:12%;font-size:44px}
+.scene-website .scene-star{content:"";color:#ff5b9b}
+@keyframes sceneSun{50%{transform:rotate(16deg) scale(1.1)}}
+@keyframes sceneCloud{50%{transform:translate(12px,-8px) rotate(4deg)}}
+@keyframes sceneRainbow{50%{transform:translateY(-12px) rotate(8deg)}}
+@keyframes sceneStar{50%{transform:scale(1.5) rotate(35deg);opacity:.55}}
+@keyframes sceneBaby{50%{transform:rotate(5deg) translateY(-6px)}}
+@keyframes sceneHop{0%,100%{transform:translateY(0) rotate(-8deg)}50%{transform:translateY(-18px) rotate(8deg)}}
+@keyframes sceneComputer{0%,100%{border-radius:50%}50%{border-radius:35% 35% 25% 25%;transform:rotate(5deg) scale(.94)}}
+/* Whole-site dream courier: a tiny angel that glides down or up as the visitor scrolls. */
+#dreamAngelCourier{position:fixed;z-index:900;right:clamp(7px,2.2vw,28px);top:7vh;width:76px;min-height:88px;display:flex;align-items:center;justify-content:center;pointer-events:none;transform:translateY(-50%);transition:top .16s linear;filter:drop-shadow(2px 4px 0 rgba(51,39,75,.18))}
+#dreamAngelCourier .angel-face{font-size:42px;display:block;animation:angelFloat 2s ease-in-out infinite}
+#dreamAngelCourier .angel-wings{position:absolute;top:12px;left:0;font-size:27px;color:#fff;transform:rotate(-15deg);animation:angelWings .5s ease-in-out infinite alternate}
+#dreamAngelCourier .angel-aura{position:absolute;font-size:75px;color:#fff2ad;opacity:.75;animation:angelAura 3s linear infinite}
+#dreamAngelCourier .angel-trail{position:absolute;top:58px;left:-12px;font-size:16px;color:#ff5b9b;letter-spacing:2px;animation:angelTrail 1.4s ease-in-out infinite}
+#dreamAngelCourier .angel-progress{position:absolute;top:76px;right:0;white-space:nowrap;background:#fffdf4;border:2px solid #33274b;border-radius:9px;padding:3px 6px;font-size:9px;font-weight:1000;color:#33274b;box-shadow:2px 2px #33274b}
+#dreamAngelCourier.angel-up .angel-face{transform:scaleX(-1);animation:angelFloatUp 2s ease-in-out infinite}
+body.night-mode #dreamAngelCourier .angel-aura{text-shadow:0 0 16px #fff1a9}
+@keyframes angelFloat{0%,100%{transform:translateY(0) rotate(-5deg)}50%{transform:translateY(-9px) rotate(6deg)}}
+@keyframes angelFloatUp{0%,100%{transform:scaleX(-1) translateY(0) rotate(-5deg)}50%{transform:scaleX(-1) translateY(-9px) rotate(6deg)}}
+@keyframes angelWings{from{transform:rotate(-20deg) translateY(0)}to{transform:rotate(18deg) translateY(-4px)}}
+@keyframes angelAura{to{transform:rotate(360deg)}}
+@keyframes angelTrail{50%{transform:translate(-5px,8px);opacity:.45}}
+@media(max-width:600px){#storybook{grid-template-columns:1fr;padding:19px 12px 15px 24px;gap:0}#storybook .story-picture{min-height:235px;margin-left:5px}#storybook .story-content{border-left:0;border-top:3px solid #eadcc9;border-radius:0 0 12px 12px;padding:22px 14px 15px}#storybook .story-content p{min-height:0}#dreamAngelCourier{right:2px;transform:translateY(-50%) scale(.78);transform-origin:right center}#dreamAngelCourier .angel-progress{font-size:8px}}
+@media(prefers-reduced-motion:reduce){#dreamAngelCourier *,#storybook .story-picture *,#storybook .story-content *{animation:none!important}}
+
+/* Slow scroll-through story sequence: the open book stays in view while its spreads turn. */
+@media(min-width:601px){#story{min-height:195vh;padding-bottom:65px}#storybook{position:sticky;top:128px;z-index:2}}
