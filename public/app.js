@@ -28,21 +28,21 @@ $("#storyBack").addEventListener("click",()=>{if(page>0)page--;renderPage()});$(
  update();
 })();
 
-// GAME 02: Boop the Goblin — slow, forgiving, and silly.
+// GAME 02: Baby Fashion Emergency — no rules, just tiny couture.
 (()=>{
- const target=$("#goblinTarget"),reset=$("#goblinReset"),progress=$("#goblinProgress"),status=$("#goblinStatus");
- if(!target||!reset)return;
- let boops=0,started=false;
- target.addEventListener("click",()=>{
-   if(!started){status.textContent="PRESS START FIRST, LITTLE GOBLIN HUNTER!!!";return}
-   boops++;progress.textContent="BOOPS: "+boops+" / 5";
-   target.textContent=["🐸","🐸","😵‍💫","🐸","🥹"][Math.min(boops-1,4)];
-   target.style.transform="rotate("+(boops%2?12:-12)+"deg) scale(1.12)";
-   status.textContent=["THE GOBLIN HAS BEEN BOOPED. LEGALLY.","IT MADE A LITTLE PEEP!!!","GOBLIN BRAIN: BUFFERING...","FOUR BOOPS?! ABSOLUTE NONSENSE.","YOU DID IT!!! GOBLIN IS NOW YOUR ROOMMATE."][Math.min(boops-1,4)];
-   beep(450+boops*90,.16);
-   if(boops>=5){started=false;reset.textContent="BOOP AGAIN!!! 🔁";target.textContent="🏆";if(typeof scorePoint==="function")scorePoint(2)}
- });
- reset.addEventListener("click",()=>{boops=0;started=true;target.textContent="🐸";target.style.transform="";progress.textContent="BOOPS: 0 / 5";status.textContent="GO ON. GIVE THAT GOBLIN A GENTLE BOOP.";reset.textContent="RESET THE GOBLIN 🔁"});
+ const hat=$("#fashionHat"),fit=$("#fashionFit"),extra=$("#fashionExtra"),name=$("#fashionName"),status=$("#fashionStatus"),baby=$("#fashionBaby");
+ if(!hat||!fit||!extra)return;
+ const hats=["🎀","👑","🧢","🐸","🪿","🧁","🌈","🛸","🎩"];
+ const fits=["👗","🧥","👚","🩱","🦺","🧸","🥷","🧦","👑"];
+ const extras=["✨","💖","🧋","🪩","🍪","🦋","⭐","🪿","💅"];
+ const looks=["THE CEO OF NAPS","A VERY FANCY POTATO","PRINCESS OF CRUMBS","THE MAYOR OF WIGGLETOWN","A TAX-FRAUD FAIRY","THE LAST BRAIN CELL MODEL","THE ROYAL MILK SOMMELIER","CERTIFIED LITTLE ICON","THE FASHION GOBLIN (GOOD EDITION)","BABY WHO PAYS RENT"];
+ let hi=0,fi=0,ei=0,revealed=false;
+ function update(){hat.textContent=hats[hi];fit.textContent=fits[fi];extra.textContent=extras[ei];name.textContent=revealed?looks[(hi*3+fi*5+ei*7)%looks.length]:"BABY BUBBLES, FASHION ICON";baby.style.transform="rotate("+((hi+fi+ei)%2? "-4deg":"4deg")+") scale(1.03)"}
+ $("#fashionHatBtn").addEventListener("click",()=>{hi=(hi+1)%hats.length;revealed=false;update();status.textContent="HAT SELECTED. HEAD IS NOW 37% MORE IMPORTANT.";beep(620,.12)});
+ $("#fashionFitBtn").addEventListener("click",()=>{fi=(fi+1)%fits.length;revealed=false;update();status.textContent="OUTFIT CHANGED. THE BABY HAS NO INCOME BUT BIG TASTE.";beep(700,.12)});
+ $("#fashionExtraBtn").addEventListener("click",()=>{ei=(ei+1)%extras.length;revealed=false;update();status.textContent="ACCESSORY ACQUIRED. ECONOMY DESTROYED.";beep(780,.12)});
+ $("#fashionReveal").addEventListener("click",()=>{revealed=true;update();status.textContent=["THE CROWD IS SCREAMING!!!","PARIS FASHION WEEK JUST CALLED. THEY ARE CONFUSED.","THE FIT IS SO POWERFUL IT OWES TAXES.","BUBBLES HAS NEVER LOOKED MORE EMPLOYABLE."][Math.floor(Math.random()*4)];baby.classList.remove("fashion-reveal-pop");void baby.offsetWidth;baby.classList.add("fashion-reveal-pop");for(let i=0;i<5;i++)setTimeout(()=>shoutAt(window.innerWidth*.25+Math.random()*window.innerWidth*.5,window.innerHeight*.25+Math.random()*window.innerHeight*.4),i*65);beep(880,.12);setTimeout(()=>beep(1120,.18),130);if(typeof scorePoint==="function")scorePoint(2);$("#fashionReveal").textContent="ANOTHER LOOK, PLEASE!!! 🔁"});
+ update();
 })();
 
 // GAME 03: Tiny memory test — see three icons, then find them at your own pace.
