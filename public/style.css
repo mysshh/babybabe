@@ -68,6 +68,21 @@ body.night-mode .story{background:#302744;border-color:#fff0c9}
 body.night-mode .about-board,body.night-mode .toy-card,body.night-mode .story-box,body.night-mode .guestbook-inner,body.night-mode .evolution-meter{background:#302943;color:#fff3d8;border-color:#fff0c9;box-shadow:6px 6px 0 #100d1d}
 body.night-mode .tiny-label,body.night-mode .plain-btn,body.night-mode .playroom-instructions,body.night-mode .playroom-message{background:#fff0c9;color:#30213e;border-color:#171126}
 body.night-mode .sunburst{background-color:#493453;border-color:#fff0c9;box-shadow:8px 8px 0 #100d1d}
+/* Keep Bubbles' original candy colors in night mode: only the world goes dark. */
+body.night-mode .original-baby .baby-cloud{background:#fffdf3;border-color:#33274b;box-shadow:5px 6px 0 #100d1d}
+body.night-mode .original-baby .baby-body{background:#94e8ff;border-color:#33274b}
+body.night-mode .original-baby .baby-ear{background:#ffb15d;border-color:#33274b}
+body.night-mode .original-baby .baby-face{background:#ffd8c0;border-color:#33274b;box-shadow:inset -5px -6px 0 #f7bba9}
+body.night-mode .original-baby .hair{background:#cbb4ff;border-color:#33274b}
+body.night-mode .original-baby .eye{background:#33274b}
+body.night-mode .original-baby .eye:after{background:#fff}
+body.night-mode .original-baby .cheek{background:#ff5b9b}
+body.night-mode .original-baby .mouth{border-bottom-color:#33274b}
+body.night-mode .original-baby .baby-arm{background:#ffd8c0;border-color:#33274b}
+body.night-mode .original-baby .baby-feet i{background:#ffb15d;border-color:#33274b}
+body.night-mode .original-baby .baby-bow{color:#ff5b9b;text-shadow:2px 2px 0 #33274b}
+body.night-mode .original-baby .baby-name-tag{background:#ffed7a;color:#33274b;border-color:#33274b;box-shadow:2px 2px 0 #100d1d}
+body.night-mode .original-baby .baby-cloud,body.night-mode .original-baby .baby-body,body.night-mode .original-baby .baby-ear,body.night-mode .original-baby .baby-face,body.night-mode .original-baby .hair,body.night-mode .original-baby .baby-arm,body.night-mode .original-baby .baby-feet i{filter:none}
 body.night-mode .logo-face,body.night-mode .title-bubble,body.night-mode .about-face,body.night-mode .sticker-note{background:#493453;color:#fff3d8;border-color:#fff0c9}
 body.night-mode .story-picture{background:#243f59;border-color:#fff0c9}
 body.night-mode .story-baby{background:#633954;border-color:#fff0c9;box-shadow:5px 5px 0 #100d1d}
