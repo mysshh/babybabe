@@ -46,3 +46,42 @@ const revealTargets=$$(".about-board,.toy-card,.story-box,.guestbook-inner,.play
 if(!window.matchMedia("(prefers-reduced-motion: reduce)").matches&&"IntersectionObserver" in window){revealTargets.forEach(el=>el.classList.add("scroll-pop"));const revealObserver=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add("is-visible");revealObserver.unobserve(entry.target)}}),{threshold:.12});revealTargets.forEach(el=>revealObserver.observe(el));}else revealTargets.forEach(el=>el.classList.add("is-visible"));
 $("#chaosBtn").addEventListener("pointerenter",()=>{if(window.matchMedia("(hover:hover)").matches)$("#chaosBtn").animate([{transform:"translateX(-50%) rotate(-2deg) scale(1)"},{transform:"translateX(-50%) rotate(3deg) scale(1.12)"},{transform:"translateX(-50%) rotate(-4deg) scale(1.04)"}],{duration:450})});
 $("#playroomStage").addEventListener("dblclick",e=>{if(e.target.closest("button"))return;for(let i=0;i<8;i++)setTimeout(()=>sparkAt(Math.random()*(playStage.clientWidth-30),Math.random()*(playStage.clientHeight-30),["💖","⭐","🌈","🫧","🌼"][i%5]),i*45);playMessage.textContent="THE FLOOR IS LAVA!!! JUST KIDDING!!!";scorePoint(2);beep(880)});
+/* Tier polish: night mode, cursor-following eyes, sparkle trail, visit odometer, and scroll story meter. */
+const themeButton=$("#dayNightToggle");
+themeButton.addEventListener("click",()=>{
+  const isNight=document.body.classList.toggle("night-mode");
+  themeButton.textContent=isNight?"☀️ DAY MODE!":"🌙 NIGHT MODE?";
+  themeButton.setAttribute("aria-pressed",String(isNight));
+  document.querySelector('meta[name="theme-color"]').content=isNight?"#24213b":"#ffed7a";
+  say(isNight?"NIGHT-NIGHT, BABY!!! 🌙":"GOOD MORNING, EVERYBABYYYY!!! ☀️");
+  beep(isNight?440:740);
+});
+let lastSpark=0;
+document.addEventListener("pointermove",e=>{
+  if(e.pointerType!=="mouse"||window.matchMedia("(prefers-reduced-motion: reduce)").matches)return;
+  const now=performance.now();if(now-lastSpark<65)return;lastSpark=now;
+  const sparkle=document.createElement("span");sparkle.className="cursor-sparkle";
+  sparkle.textContent=["✦","♡","✧","⋆","✿"][Math.floor(Math.random()*5)];
+  sparkle.style.left=e.clientX+"px";sparkle.style.top=e.clientY+"px";
+  document.body.appendChild(sparkle);setTimeout(()=>sparkle.remove(),700);
+});
+document.addEventListener("pointermove",e=>{
+  if(!window.matchMedia("(hover:hover)").matches)return;
+  const stage=$("#characterStage")||$(".character-stage"),face=$(".baby-face");
+  if(!stage||!face)return;
+  const r=face.getBoundingClientRect(),cx=r.left+r.width/2,cy=r.top+r.height/2;
+  const dx=Math.max(-5,Math.min(5,(e.clientX-cx)/24)),dy=Math.max(-4,Math.min(4,(e.clientY-cy)/28));
+  $$(".eye").forEach(eye=>{eye.style.translate=dx+"px "+dy+"px"});
+});
+try{
+  const visits=Number(localStorage.getItem("bubblesBabyVisits")||0)+1;
+  localStorage.setItem("bubblesBabyVisits",String(visits));
+  $("#visitCounter").textContent="BABIES VISITED: "+String(visits).padStart(4,"0");
+}catch(e){$("#visitCounter").textContent="BABIES VISITED: 0001";}
+function updateStoryScroll(){
+  const story=$("#story"),fill=$("#storyScrollFill");if(!story||!fill)return;
+  const r=story.getBoundingClientRect(),span=r.height-window.innerHeight;
+  const progress=span<=0?(r.top<window.innerHeight?1:0):Math.max(0,Math.min(1,(window.innerHeight-r.top)/(r.height+window.innerHeight)));
+  fill.style.width=(progress*100)+"%";
+}
+window.addEventListener("scroll",updateStoryScroll,{passive:true});window.addEventListener("resize",updateStoryScroll);updateStoryScroll();

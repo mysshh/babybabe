@@ -12,7 +12,7 @@
 <header class="baby-header">
   <a class="logo" href="#home" aria-label="Baby World home"><span class="logo-face">:D</span><span>BABY<br>WORLD!!!</span></a>
   <div class="header-middle">HIIII FRIEND!!! <span class="wiggle">👋</span></div>
-  <button id="musicToggle" class="sound-btn" aria-pressed="false">🔊 SOUND ON?</button>
+  <div class="header-controls"><button id="dayNightToggle" class="sound-btn theme-btn" aria-pressed="false">🌙 NIGHT MODE?</button><button id="musicToggle" class="sound-btn" aria-pressed="false">🔊 SOUND ON?</button></div>
 </header>
 <main id="home">
 <section class="hero">
@@ -80,7 +80,7 @@
 
 <section class="story section" id="story">
   <div class="section-title"><span class="title-bubble">03</span><h2>HOW I GOT HERE!!!</h2><span class="doodle-arrow">← once upon a time</span></div>
-  <div class="story-box">
+  <div class="story-scroll-meter" aria-label="Story scroll progress"><span>SCROLL THROUGH MY LIL STORY!!! ↓</span><div><i id="storyScrollFill"></i></div></div><div class="story-box">
     <div class="story-picture" id="storyPicture"><span class="story-sun">☀</span><span class="story-cloud">☁</span><span class="story-baby">:D</span><span class="story-rainbow">⌒⌒⌒</span></div>
     <div class="story-content"><span class="story-count" id="storyCount">STORY PAGE 1!!!</span><h3 id="storyHeading">A TINY LITTLE PLOP!!!</h3><p id="storyText">One day, a little cloud went PLOP! And out came ME!!! Bubbles!!! I had two socks, zero plans, and a VERY BIG idea.</p><div class="story-controls"><button id="storyBack" disabled>← BACK</button><button id="storyNext">NEXT PAGE!!! ➜</button></div></div>
   </div>
@@ -94,7 +94,7 @@
 </section>
 <section class="bye-section"><div class="bye-stars">★　✿　★　♡　★</div><h2>OK BYYYYYEEEE!!!</h2><p>you did a very good job being a human today!!!</p><button class="giant-btn" id="hugBtn">GIVE BUBBLES A HUG!!! ♡</button><div id="hugResult" aria-live="polite"></div></section>
 </main>
-<footer><span>© BUBBLES BABY INC. (not a real company lol)</span><span>MADE WITH ♡ AND CRAYONS</span><a href="#home">UP UP UP ↑</a></footer>
+<footer><span>© BUBBLES BABY INC. (not a real company lol)</span><span>MADE WITH ♡ AND CRAYONS</span><span id="visitCounter" aria-live="polite">BABIES VISITED: 0001</span><a href="#home">UP UP UP ↑</a></footer>
 <div id="toast" role="status" aria-live="polite"></div><button id="secretButton" aria-label="tiny secret button" title="what dis?">✿</button>
 <script src="/app.js"></script>
 </body></html>
