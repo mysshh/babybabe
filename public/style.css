@@ -224,3 +224,5 @@ body.night-mode .lullaby-lab{background:linear-gradient(145deg,#211b35,#302943 5
 .pacifier-cup .cup-cloud{font-size:clamp(35px,5vw,49px);line-height:1.15}.cup-number{font-size:10px;font-weight:1000;letter-spacing:.03em}.pacifier-cup.shuffling{transform:translateY(-13px) rotate(5deg) scale(1.04);background:#fff0f7}.pacifier-cup.revealed{background:#fff4bd}.pacifier-cup.correct{background:#c8f7a8;transform:rotate(-4deg) scale(1.04)}.pacifier-cup.wrong{background:#ffd1dc;transform:rotate(4deg)}.pacifier-score{font-weight:1000;font-size:13px;background:#fff;border:2px solid var(--ink);border-radius:999px;padding:6px 12px}
 @media(max-width:680px){.pacifier-cup{min-height:92px}.pacifier-cup .cup-number{font-size:9px}}
 @media(prefers-reduced-motion:reduce){.pacifier-cup{transition:none}.pacifier-cup.shuffling{transform:none}}
+/* The fortune now speaks automatically when revealed; keep the old manual controls out of the way. */
+.fortune-voice-button,.fortune-voice-hint{display:none!important}
