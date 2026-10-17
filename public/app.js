@@ -12,7 +12,9 @@ $("#soundBtn").addEventListener("click",()=>{[523,659,784].forEach((f,i)=>setTim
 let growth=0;$("#growBtn").addEventListener("click",()=>{growth++;const flowers=$$(".flower");flowers.forEach((f,i)=>{f.style.transform="scale("+(1+Math.min(growth,5)*.13)+") rotate("+(growth%2?8:-8)+"deg)";f.style.filter="hue-rotate("+(growth*25)+"deg)"});$("#gardenResult").textContent=growth>=5?"OMG A BIG HAPPY FLOWER JUNGLE!!! 🌼🌸🌷":"GROW LEVEL "+growth+"!!! 🌱";beep(500+growth*80);if(growth===5)say("LOOK AT OUR BIG GARDEN!!!")});
 const pages=[{count:"STORY PAGE 1!!!",heading:"A TINY LITTLE PLOP!!!",text:"One day, a little cloud went PLOP! And out came ME!!! Bubbles!!! I had two socks, zero plans, and a VERY BIG idea.",color:"#94e8ff",face:":D"},{count:"STORY PAGE 2!!!",heading:"THE GREAT GIGGLE!!!",text:"I bounced on a rainbow, sneezed a glitter sneeze, and accidentally made the whole sky pink. Everybody laughed. So I decided my job would be making little things that make people go YAY!!!",color:"#ffb5d6",face:"^‿^"},{count:"STORY PAGE 3!!!",heading:"A WEBSITE FOR EVERYBABY!!!",text:"Then I found a magic rectangle called a computer. I put my doodles, my toys, and my VERY IMPORTANT face on it. Now every baby can come visit!!! THAT MEANS YOU!!!",color:"#cbb4ff",face:"♡‿♡"}];let page=0;
 function renderPage(){$("#storyCount").textContent=pages[page].count;$("#storyHeading").textContent=pages[page].heading;$("#storyText").textContent=pages[page].text;$("#storyPicture").style.background=pages[page].color;/* story face is updated via .story-baby below */const face=$(".story-baby");face.textContent=pages[page].face;$("#storyBack").disabled=page===0;$("#storyNext").textContent=page===pages.length-1?"READ AGAIN!!! ↻":"NEXT PAGE!!! ➜"}
-$("#storyBack").addEventListener("click",()=>{if(page>0)page--;renderPage()});$("#storyNext").addEventListener("click",()=>{page=(page+1)%pages.length;renderPage();beep(600)});
+function turnStoryPage(direction){const next=page+direction;if(next<0||next>=pages.length){if(direction>0&&page===pages.length-1)page=0;else return}else page=next;const box=$("#storybook");if(box){box.classList.remove("page-turn-forward","page-turn-back");void box.offsetWidth;box.classList.add(direction>0?"page-turn-forward":"page-turn-back");setTimeout(()=>box.classList.remove("page-turn-forward","page-turn-back"),520)}renderPage();beep(600)}
+$("#storyBack").addEventListener("click",()=>turnStoryPage(-1));$("#storyNext").addEventListener("click",()=>turnStoryPage(1));
+const storyBox=$("#storybook");if(storyBox){storyBox.addEventListener("keydown",e=>{if(e.altKey||e.ctrlKey||e.metaKey)return;if(e.key==="ArrowRight"){e.preventDefault();turnStoryPage(1)}else if(e.key==="ArrowLeft"){e.preventDefault();turnStoryPage(-1)}});let touchX=null;storyBox.addEventListener("touchstart",e=>{touchX=e.changedTouches[0].clientX},{passive:true});storyBox.addEventListener("touchend",e=>{if(touchX===null)return;const dx=e.changedTouches[0].clientX-touchX;touchX=null;if(Math.abs(dx)>55)turnStoryPage(dx<0?1:-1)},{passive:true})}
 
 // BABY ARCADE: catch snacks, avoid suspicious socks, achieve crumb-based greatness.
 (()=>{
@@ -127,6 +129,8 @@ $("#chaosBtn").addEventListener("pointerenter",()=>{if(window.matchMedia("(hover
 $("#playroomStage").addEventListener("dblclick",e=>{if(e.target.closest("button"))return;for(let i=0;i<8;i++)setTimeout(()=>sparkAt(Math.random()*(playStage.clientWidth-30),Math.random()*(playStage.clientHeight-30),["💖","⭐","🌈","🫧","🌼"][i%5]),i*45);playMessage.textContent="THE FLOOR IS LAVA!!! JUST KIDDING!!!";scorePoint(2);beep(880)});
 /* Tier polish: night mode, cursor-following eyes, sparkle trail, visit odometer, and scroll story meter. */
 const themeButton=$("#dayNightToggle");
+const flashlight=document.createElement("div");flashlight.id="dreamFlashlight";flashlight.setAttribute("aria-hidden","true");document.body.appendChild(flashlight);
+document.addEventListener("pointermove",e=>{if(e.pointerType==="touch")return;flashlight.style.setProperty("--flash-x",e.clientX+"px");flashlight.style.setProperty("--flash-y",e.clientY+"px")},{passive:true});
 themeButton.addEventListener("click",()=>{
   const isNight=document.body.classList.toggle("night-mode");
   themeButton.textContent=isNight?"☀️ DAY MODE!":"🌙 NIGHT MODE?";
@@ -158,10 +162,8 @@ try{
   $("#visitCounter").textContent="BABIES VISITED: "+String(visits).padStart(4,"0");
 }catch(e){$("#visitCounter").textContent="BABIES VISITED: 0001";}
 function updateStoryScroll(){
-  const story=$("#story"),fill=$("#storyScrollFill");if(!story||!fill)return;
-  const r=story.getBoundingClientRect(),span=r.height-window.innerHeight;
-  const progress=span<=0?(r.top<window.innerHeight?1:0):Math.max(0,Math.min(1,(window.innerHeight-r.top)/(r.height+window.innerHeight)));
-  fill.style.width=(progress*100)+"%";
+  const story=$("#story"),fill=$("#storyScrollFill");if(story&&fill){const r=story.getBoundingClientRect();const progress=Math.max(0,Math.min(1,(window.innerHeight-r.top)/(r.height+window.innerHeight)));fill.style.width=(progress*100)+"%"}
+  const route=$("#dreamRouteWrap"),path=$("#dreamRoutePath"),envelope=$("#dreamEnvelope"),message=$("#dreamDeliveryMessage");if(!route||!path||!envelope||!message)return;const r=route.getBoundingClientRect(),progress=Math.max(0,Math.min(1,(window.innerHeight-r.top)/(window.innerHeight+r.height)));const length=path.getTotalLength();path.style.strokeDasharray=length;path.style.strokeDashoffset=length*(1-progress);const point=path.getPointAtLength(length*progress);envelope.setAttribute("transform","translate("+point.x+" "+point.y+")");message.textContent=progress>=.995?"DELIVERED!!! A LITTLE HAPPY JUST FOR YOU!!! 💖": "DELIVERING A LITTLE HAPPY... "+Math.round(progress*100)+"% ✨";
 }
 window.addEventListener("scroll",updateStoryScroll,{passive:true});window.addEventListener("resize",updateStoryScroll);updateStoryScroll();
 

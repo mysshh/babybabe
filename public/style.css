@@ -226,3 +226,29 @@ body.night-mode .lullaby-lab{background:linear-gradient(145deg,#211b35,#302943 5
 @media(prefers-reduced-motion:reduce){.pacifier-cup{transition:none}.pacifier-cup.shuffling{transform:none}}
 /* The fortune now speaks automatically when revealed; keep the old manual controls out of the way. */
 .fortune-voice-button,.fortune-voice-hint{display:none!important}
+
+/* A soft flashlight reveals the dream world only while night mode is on. */
+#dreamFlashlight{position:fixed;inset:0;z-index:950;pointer-events:none;opacity:0;visibility:hidden;transition:opacity .25s ease;--flash-x:50vw;--flash-y:50vh;background:radial-gradient(circle 165px at var(--flash-x) var(--flash-y),rgba(255,240,170,.06) 0,rgba(255,240,170,.11) 82px,rgba(16,14,38,.78) 190px,rgba(12,10,29,.88) 310px);mix-blend-mode:normal}
+body.night-mode #dreamFlashlight{opacity:1;visibility:visible}
+body.night-mode #dreamFlashlight::after{content:"✦";position:absolute;left:var(--flash-x);top:var(--flash-y);transform:translate(-50%,-50%);font-size:23px;color:#fff1b5;text-shadow:0 0 18px #fff1b5,0 0 34px #ffb8df;opacity:.8}
+.storybook-hint{margin:-12px 0 18px;text-align:center;font-size:13px;font-weight:800;letter-spacing:.02em}
+#storybook{perspective:1200px;transform-style:preserve-3d;outline-offset:6px}
+#storybook.page-turn-forward .story-picture,#storybook.page-turn-forward .story-content{animation:storybookFlipForward .48s ease both;backface-visibility:hidden}
+#storybook.page-turn-back .story-picture,#storybook.page-turn-back .story-content{animation:storybookFlipBack .48s ease both;backface-visibility:hidden}
+@keyframes storybookFlipForward{0%{opacity:.55;transform:rotateY(-13deg) translateX(14px)}55%{opacity:.8;transform:rotateY(8deg) translateX(-5px)}100%{opacity:1;transform:rotateY(0) translateX(0)}}
+@keyframes storybookFlipBack{0%{opacity:.55;transform:rotateY(13deg) translateX(-14px)}55%{opacity:.8;transform:rotateY(-8deg) translateX(5px)}100%{opacity:1;transform:rotateY(0) translateX(0)}}
+.dream-delivery{background:#c9efff;border-bottom:5px solid var(--ink);overflow:hidden}
+.dream-route-wrap{max-width:1000px;margin:24px auto 0;padding:clamp(15px,3vw,30px);background:#fffdf4;border:5px solid var(--ink);border-radius:24px;box-shadow:9px 9px var(--ink);transform:rotate(-.35deg)}
+.dream-route-label,.dream-destination{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-size:clamp(12px,2vw,17px);font-weight:1000}
+.dream-route{display:block;width:100%;height:auto;overflow:visible;margin:10px 0}
+.dream-route-shadow{fill:none;stroke:#33274b;stroke-width:15;stroke-linecap:round;opacity:.13}
+.dream-route-path{fill:none;stroke:#ff5b9b;stroke-width:6;stroke-linecap:round;stroke-dasharray:2 15;stroke-dashoffset:0}
+.route-doodle{font-size:27px;fill:#ff9a37;font-weight:900}
+.dream-envelope{font-size:37px;filter:drop-shadow(2px 3px 0 #33274b);transition:transform .12s linear}
+.dream-delivery-message{text-align:center;font-size:clamp(17px,3vw,25px);font-weight:1000;color:#d93e85;margin:5px 0 18px}
+.dream-destination{justify-content:flex-end;color:#4a7d44}.dream-destination span{font-size:24px;color:#ff5b9b}
+body.night-mode .dream-delivery{background:#25243f}
+body.night-mode .dream-route-wrap{background:#302943;color:#fff3d8;border-color:#fff0c9;box-shadow:7px 7px #100d1d}
+body.night-mode .dream-route-shadow{stroke:#fff0c9;opacity:.18}
+@media(max-width:600px){.dream-route-wrap{padding:12px;border-width:3px}.dream-route{margin:22px 0}.dream-route-label{font-size:11px}.storybook-hint{font-size:11px}}
+@media(prefers-reduced-motion:reduce){#dreamFlashlight{transition:none}#storybook.page-turn-forward .story-picture,#storybook.page-turn-forward .story-content,#storybook.page-turn-back .story-picture,#storybook.page-turn-back .story-content{animation:none!important}.dream-envelope{transition:none}}
