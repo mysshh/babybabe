@@ -79,11 +79,17 @@ const babyFortunes=[
  {title:"A SURPRISE WILL GO PLOP.",note:"KEEP YOUR EYES OPEN AND YOUR SNACKS CLOSER. 🌈"},
  {title:"YOU DESERVE A LITTLE REST.",note:"EVEN LEGENDS NEED A NAP. ZZZ... 🌙"}
 ];
+let currentFortune=null;
+function readFortuneAloud(){if(!currentFortune)return;const hint=$("#fortuneVoiceHint");if(!("speechSynthesis" in window)||!("SpeechSynthesisUtterance" in window)){hint.textContent="OH NOOO!!! THIS BROWSER DOES NOT HAVE A TALKING BABY VOICE. TRY A DIFFERENT BROWSER!";return}window.speechSynthesis.cancel();const line=currentFortune.title+" "+currentFortune.note;const utterance=new SpeechSynthesisUtterance(line);utterance.lang="en-US";utterance.rate=.86;utterance.pitch=1.75;const voices=window.speechSynthesis.getVoices();const voice=voices.find(v=>/^en(-|_)/i.test(v.lang)&&/female|child|samantha|zira|aria|jenny/i.test(v.name))||voices.find(v=>/^en(-|_)/i.test(v.lang));if(voice)utterance.voice=voice;utterance.onstart=()=>{hint.textContent="BA BA BA... BUBBLES IS READING!!! 🍼";$("#fortuneVoiceBtn").textContent="🔊 BUBBLES IS TALKING..."};utterance.onend=()=>{$("#fortuneVoiceBtn").textContent="🍼 READ IT AGAIN!!!";hint.textContent="THE PROPHECY HAS BEEN DELIVERED. GOO GOO GAA GAA!!!"};utterance.onerror=()=>{$("#fortuneVoiceBtn").textContent="🍼 READ IT TO ME, BABY!!! 🔊";hint.textContent="THE BABY VOICE GOT THE HICCUPS. TAP TO TRY AGAIN!!!"};window.speechSynthesis.speak(utterance)}
+$("#fortuneVoiceBtn").disabled=!("speechSynthesis" in window);
+$("#fortuneVoiceBtn").addEventListener("click",readFortuneAloud);
 $("#fortuneBtn").addEventListener("click",()=>{
- const paper=$("#fortunePaper"),pick=babyFortunes[Math.floor(Math.random()*babyFortunes.length)];
+ if("speechSynthesis" in window)window.speechSynthesis.cancel();
+ const paper=$("#fortunePaper"),pick=babyFortunes[Math.floor(Math.random()*babyFortunes.length)];currentFortune=pick;
  paper.classList.remove("fortune-pop");void paper.offsetWidth;paper.classList.add("fortune-pop");
  paper.innerHTML="<span>THE CLOUDS HAVE SPOKEN!!!</span><strong>"+pick.title+"</strong><small>"+pick.note+"</small>";
  $("#fortuneStatus").textContent=["THE PROPHECY IS PROBABLY ACCURATE!!!","BUBBLES CONSULTED ONE (1) CRAYON.","THE FUTURE SMELLS LIKE BISCUITS.","DO NOT QUESTION THE MAGIC CLOUD."][Math.floor(Math.random()*4)];
+ $("#fortuneVoiceBtn").disabled=false;$("#fortuneVoiceBtn").textContent="🍼 READ IT TO ME, BABY!!! 🔊";$("#fortuneVoiceHint").textContent="PSSST... WANT BUBBLES TO READ IT OUT LOUD?";
  beep(620,.14);setTimeout(()=>beep(850,.16),100);if(typeof scorePoint==="function")scorePoint(1);
 });
 let secrets=0;function secretClick(){secrets++;const secret=$("#secretButton");if(secrets<5){secret.animate([{transform:"scale(1) rotate(0)"},{transform:"scale(1.35) rotate(20deg)"},{transform:"scale(1) rotate(0)"}],{duration:350});say(["teehee...","wrong flower!!!","getting warmer!!!","ONE MORE!!!"][secrets-1]);beep(400+secrets*70)}else{say("SECRET UNLOCKED!!! BUBBLES THINKS YOU ARE THE BEST BABY EVER!!! ♡");secret.textContent="♡";secret.classList.add("secret-unlocked");secret.setAttribute("aria-label","Secret unlocked! You are Bubbles' best baby ever");secret.title="YOU FOUND THE SECRET!!!";const note=document.createElement("div");note.id="secretNote";note.setAttribute("role","status");note.innerHTML="<strong>YOU FOUND MY SECRET!!! ♡</strong><span>YOU ARE BUBBLES' BEST BABY EVER!!!</span><span>🌈 ⭐ 🌼 THANK YOU FOR PLAYING!!! 🌼 ⭐ 🌈</span>";document.body.appendChild(note);for(let i=0;i<22;i++)setTimeout(()=>shoutAt(Math.random()*window.innerWidth,Math.random()*window.innerHeight),i*45);[523,659,784,1046].forEach((f,i)=>setTimeout(()=>beep(f,.24),i*130));secret.removeEventListener("click",secretClick)}}$("#secretButton").addEventListener("click",secretClick);
