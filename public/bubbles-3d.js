@@ -30,8 +30,8 @@ if (mount) {
     }
     // Soft cloud silhouette built from low-poly-friendly spheres; no large model download.
     ball(baby,cloudMat,[0,0.35,0],[1.28,.9,.68]);
-    ball(baby,cloudMat,[-.72,.25,0],[.62,.63,.58]);
-    ball(baby,cloudMat,[.72,.25,0],[.62,.63,.58]);
+    // Removed the two oversized side cloud spheres that were rendering as pink circles over the face.
+    // Keep the central cloud and upper puffs for a clean, unobstructed front.
     ball(baby,cloudMat,[-.42,.78,0],[.65,.58,.58]);
     ball(baby,cloudMat,[.38,.78,0],[.65,.58,.58]);
     ball(baby,bodyMat,[0,-.58,0],[.72,.6,.55]);
