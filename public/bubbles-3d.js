@@ -69,25 +69,25 @@ if (mount) {
       const a=i/7*Math.PI*2; star.position.set(Math.cos(a)*1.65,Math.sin(a)*1.15+.15,-.15);
       scene.add(star); stars.push(star);
     }
-    let dragging=false, lastX=0, lastY=0, pointerMoved=false, targetX=0, targetY=0, giggle=0, cursorX=0, cursorY=0, petting=0;
+    let dragging=false, lastX=0, lastY=0, pointerMoved=false, targetX=0, targetY=0, giggle=0, cursorX=0, cursorY=0, petting=0;let lastInteraction=performance.now(),idleMood='awake',blinkAt=performance.now()+2400,blinkAmount=0;const keepsakeKey='bwBubblesStars';let starsFound=0;try{starsFound=Number(localStorage.getItem(keepsakeKey)||0);}catch(_){};const starHint=document.createElement('span');starHint.className='bubbles-star-count';starHint.textContent='✨ DREAM STARS: '+starsFound;mount.parentElement.appendChild(starHint);window.addEventListener('pointermove',()=>{lastInteraction=performance.now();if(idleMood==='sleeping'){idleMood='awake';setFace('surprised');if(status)status.textContent='YOU’RE BACK!!! I WAS DREAMING OF YOU!! 💗';}});
     window.addEventListener('pointermove',e=>{cursorX=(e.clientX/window.innerWidth-.5)*2;cursorY=(e.clientY/window.innerHeight-.5)*2;});window.addEventListener('pointerleave',()=>{cursorX=0;cursorY=0;});
     renderer.domElement.style.touchAction='pan-y';
     renderer.domElement.addEventListener('pointerdown',e=>{dragging=true;pointerMoved=false;petting=1;lastX=e.clientX;lastY=e.clientY;longHeld=false;clearTimeout(holdTimer);holdTimer=setTimeout(()=>{longHeld=true;setFace('sleepy');if(status)status.textContent='SHHH... TINY NAP TIME... 😴';},650);renderer.domElement.setPointerCapture(e.pointerId);if(status)status.textContent='OOOH, GENTLE PETS!!! MY CLOUD BRAIN IS PURRING!!! ♡';});
     renderer.domElement.addEventListener('pointermove',e=>{if(!dragging)return;const dx=e.clientX-lastX,dy=e.clientY-lastY;if(Math.abs(dx)+Math.abs(dy)>2)pointerMoved=true;targetY+=dx*.008;targetX=Math.max(-.45,Math.min(.45,targetX+dy*.006));lastX=e.clientX;lastY=e.clientY;});
     renderer.domElement.addEventListener('pointerup',()=>{clearTimeout(holdTimer);if(dragging&&!pointerMoved&&!longHeld){giggle=1;petting=1;tapCount++;clearTimeout(tapTimer);if(tapCount===1){setFace('love');if(status)status.textContent='TEEHEE!!! YOU TICKLED MY TINY CLOUD TUMMY!!! 💗';}else if(tapCount===2){setFace('surprised');giggle=1.5;if(status)status.textContent='WHEEEE!! PLAYTIME WITH MY BESTIE!!! ✨';}else{setFace('silly');if(status)status.textContent='BLEHHHH!! YOU FOUND MY SILLY FACE!! 😜';}tapTimer=setTimeout(()=>{tapCount=0;},550);const heartMat=new THREE.MeshStandardMaterial({color:0xff75b7,emissive:0x55152f});const heart=new THREE.Mesh(new THREE.SphereGeometry(.09,12,10),heartMat);heart.position.set((Math.random()-.5)*1.1,-.1,.95);scene.add(heart);let life=0;const floatHeart=()=>{if(life++>36){scene.remove(heart);heart.geometry.dispose();heartMat.dispose();return;}heart.position.y+=.018;heart.scale.multiplyScalar(.985);requestAnimationFrame(floatHeart);};floatHeart();}dragging=false;});
-    renderer.domElement.addEventListener('pointercancel',()=>dragging=false);
+    renderer.domElement.addEventListener('pointercancel',()=>{clearTimeout(holdTimer);dragging=false;});
+    const starRaycaster=new THREE.Raycaster(),starPointer=new THREE.Vector2();renderer.domElement.addEventListener('click',e=>{const rect=renderer.domElement.getBoundingClientRect();starPointer.x=((e.clientX-rect.left)/rect.width)*2-1;starPointer.y=-((e.clientY-rect.top)/rect.height)*2+1;starRaycaster.setFromCamera(starPointer,camera);const hit=starRaycaster.intersectObjects(stars,false)[0];if(hit){starsFound++;try{localStorage.setItem(keepsakeKey,String(starsFound));}catch(_){}starHint.textContent='✨ DREAM STARS: '+starsFound;giggle=1.5;petting=1;setFace('surprised');if(status)status.textContent='YOU FOUND A DREAM STAR!!! MAKE A WISH, BESTIE!! 🌟';hit.object.material.color.set(0xff75b7);hit.object.material.emissive.set(0x662244);}});
     let width=0,height=0;
     function resize(){const w=Math.max(1,mount.clientWidth),h=Math.max(1,mount.clientHeight);if(w===width&&h===height)return;width=w;height=h;camera.aspect=w/h;camera.updateProjectionMatrix();renderer.setSize(w,h,false);}
     const observer = new ResizeObserver(resize); observer.observe(mount);
     const reduceMotion=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     function animate(t){
-      requestAnimationFrame(animate); resize();
-      if(!dragging){targetY += reduceMotion?0:.0018;}
+      requestAnimationFrame(animate); resize();const time=t*.001;
+      if(!dragging){targetY += reduceMotion?0:.0018;if(idleMood==='awake'&&Math.sin(time*.43)>.995){targetX=Math.sin(time*1.7)*.07;}}
       baby.rotation.y += (targetY+cursorX*.22-baby.rotation.y)*.08;
       eyeLeft.position.x=eyeLeftBase+Math.max(-.055,Math.min(.055,cursorX*.055));eyeRight.position.x=eyeRightBase+Math.max(-.055,Math.min(.055,cursorX*.055));eyeLeft.position.y=.22+Math.max(-.035,Math.min(.035,-cursorY*.035));eyeRight.position.y=eyeLeft.position.y;
       baby.rotation.x += (targetX-cursorY*.08+(petting>0?.08:0)-baby.rotation.x)*.08;
-      const time=t*.001;
-      baby.position.y=(reduceMotion?0:Math.sin(time*1.3)*.09)+(petting>0?.035:0);
+      baby.position.y=(reduceMotion?0:Math.sin(time*(idleMood==='sleeping'?.45:1.3))*(idleMood==='sleeping'?.025:.09))+(petting>0?.035:0);if(performance.now()>blinkAt){blinkAmount=Math.min(1,blinkAmount+.22);if(blinkAmount>=1){blinkAt=performance.now()+180;}}if(blinkAmount>0){const blinkScale=Math.max(.012,eyeOpenScale.left*(1-blinkAmount));eyeLeft.scale.y=faceMode==='sleepy'?.035:blinkScale;eyeRight.scale.y=eyeLeft.scale.y;blinkAmount=Math.max(0,blinkAmount-.24);if(blinkAmount===0)blinkAt=performance.now()+2200+Math.random()*2600;}if(!dragging&&performance.now()-lastInteraction>18000&&idleMood==='awake'){idleMood='sleeping';setFace('sleepy');if(status)status.textContent='*tiny yawn* zzz... cloud dreams... ☁️💤';}if(idleMood==='sleeping'&&Math.sin(time*1.1)>.94){baby.rotation.z=Math.sin(time*.7)*.025;}else{baby.rotation.z+=(0-baby.rotation.z)*.04;}
       petting=Math.max(0,petting-.012);
       baby.scale.setScalar(1+(giggle>0?Math.sin(time*32)*.035:0));
       giggle=Math.max(0,giggle-.025);
