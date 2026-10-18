@@ -38,7 +38,9 @@
         showAction(node.textContent || '', previous ? previous.textContent : '');
       }
     });
-    observer.observe(log, { childList: true });
+    observer.observe(log, { childList: true, subtree: true });
+    const existingReplies = log.querySelectorAll('.tier-bubbles-says');
+    existingReplies.forEach(node => { if (node !== log.firstElementChild) showAction(node.textContent || '', ''); });
   };
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', findChat);
   else findChat();
