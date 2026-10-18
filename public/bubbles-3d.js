@@ -87,7 +87,7 @@ if (mount) {
     function animate(t){
       requestAnimationFrame(animate); resize();const time=t*.001;
       if(!dragging){targetY=reduceMotion?0:Math.sin(time*.35)*.12;if(idleMood==='awake'&&Math.sin(time*.43)>.995){targetX=Math.sin(time*1.7)*.07;}}
-      baby.rotation.y += (targetY+cursorX*.22-baby.rotation.y)*.08;
+      baby.rotation.y += (0-baby.rotation.y)*.16;
       eyeLeft.position.x=eyeLeftBase+Math.max(-.055,Math.min(.055,cursorX*.055));eyeRight.position.x=eyeRightBase+Math.max(-.055,Math.min(.055,cursorX*.055));eyeLeft.position.y=.22+Math.max(-.035,Math.min(.035,-cursorY*.035));eyeRight.position.y=eyeLeft.position.y;
       baby.rotation.x += (targetX-cursorY*.08+(petting>0?.08:0)-baby.rotation.x)*.08;
       baby.position.y=(reduceMotion?0:Math.sin(time*(idleMood==='sleeping'?.45:1.3))*(idleMood==='sleeping'?.025:.09))+(petting>0?.035:0);if(performance.now()>blinkAt){blinkAmount=Math.min(1,blinkAmount+.22);if(blinkAmount>=1){blinkAt=performance.now()+180;}}if(blinkAmount>0){const blinkScale=Math.max(.012,eyeOpenScale.left*(1-blinkAmount));eyeLeft.scale.y=faceMode==='sleepy'?.035:blinkScale;eyeRight.scale.y=eyeLeft.scale.y;blinkAmount=Math.max(0,blinkAmount-.24);if(blinkAmount===0)blinkAt=performance.now()+2200+Math.random()*2600;}if(!dragging&&performance.now()-lastInteraction>18000&&idleMood==='awake'){idleMood='sleeping';setFace('sleepy');if(status)status.textContent='*tiny yawn* zzz... cloud dreams... ☁️💤';}if(idleMood==='sleeping'&&Math.sin(time*1.1)>.94){baby.rotation.z=Math.sin(time*.7)*.025;}else{baby.rotation.z+=(0-baby.rotation.z)*.04;}
