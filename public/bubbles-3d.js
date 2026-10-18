@@ -86,7 +86,7 @@ if (mount) {
     const reduceMotion=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     function animate(t){
       requestAnimationFrame(animate); resize();const time=t*.001;
-      if(!dragging){targetY += reduceMotion?0:.0018;if(idleMood==='awake'&&Math.sin(time*.43)>.995){targetX=Math.sin(time*1.7)*.07;}}
+      if(!dragging){targetY=reduceMotion?0:Math.sin(time*.35)*.12;if(idleMood==='awake'&&Math.sin(time*.43)>.995){targetX=Math.sin(time*1.7)*.07;}}
       baby.rotation.y += (targetY+cursorX*.22-baby.rotation.y)*.08;
       eyeLeft.position.x=eyeLeftBase+Math.max(-.055,Math.min(.055,cursorX*.055));eyeRight.position.x=eyeRightBase+Math.max(-.055,Math.min(.055,cursorX*.055));eyeLeft.position.y=.22+Math.max(-.035,Math.min(.035,-cursorY*.035));eyeRight.position.y=eyeLeft.position.y;
       baby.rotation.x += (targetX-cursorY*.08+(petting>0?.08:0)-baby.rotation.x)*.08;
