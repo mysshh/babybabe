@@ -39,8 +39,9 @@ if (mount) {
     ball(baby,pinkMat,[-1.02,-.12,.04],[.18,.25,.15]);
     ball(baby,pinkMat,[1.02,-.12,.04],[.18,.25,.15]);
     // Face is slightly forward so it reads clearly while rotating.
-    ball(baby,darkMat,[-.36,.22,.625],[.075,.115,.045],24);
-    ball(baby,darkMat,[.36,.22,.625],[.075,.115,.045],24);
+    const eyeLeft=ball(baby,darkMat,[-.36,.22,.625],[.075,.115,.045],24);
+    const eyeRight=ball(baby,darkMat,[.36,.22,.625],[.075,.115,.045],24);
+    const eyeOpenScale={left:eyeLeft.scale.y,right:eyeRight.scale.y};
     ball(baby,whiteMat,[-.38,.26,.662],[.022,.028,.012],16);
     ball(baby,whiteMat,[.34,.26,.662],[.022,.028,.012],16);
     ball(baby,pinkMat,[-.58,-.03,.61],[.16,.09,.035],24);
@@ -49,9 +50,15 @@ if (mount) {
     const smilePts = [];
     for(let i=0;i<=20;i++){const x=-.19+i*.019; const y=-.02-.12*(1-Math.pow(x/.19,2)); smilePts.push(new THREE.Vector3(x,.02+y,.67));}
     const smile = new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(smilePts),24,.025,8,false),darkMat); baby.add(smile);
+    const faceModes={happy:{eye:.115,mouth:1,tilt:0},sleepy:{eye:.035,mouth:.65,tilt:.08},surprised:{eye:.15,mouth:1.8,tilt:-.04},love:{eye:.07,mouth:1.25,tilt:0},silly:{eye:.09,mouth:1.45,tilt:-.1}};
+    let faceMode='happy';
+    function setFace(mode){faceMode=faceModes[mode]?mode:'happy';const f=faceModes[faceMode];eyeLeft.scale.y=f.eye;eyeRight.scale.y=f.eye;smile.scale.set(1,f.mouth,1);if(status)status.textContent=({happy:'HAPPY CLOUD BABY!!! 🥰',sleepy:'MMM... JUST A TINY NAP... 😴',surprised:'WOAHHH!!! 😮',love:'I LOVE YOU THIS MUCH!!! 💗',silly:'BLEHHHHH!!! 😜'})[faceMode];}
+    document.querySelectorAll('[data-bubbles-face]').forEach(button=>button.addEventListener('click',()=>setFace(button.dataset.bubblesFace)));
     const outfit = new THREE.Group(); baby.add(outfit);
     function dress(kind){outfit.clear();const pink=new THREE.MeshStandardMaterial({color:0xff6fae,roughness:.5});const gold=new THREE.MeshStandardMaterial({color:0xffd34f,roughness:.4});const dark=new THREE.MeshStandardMaterial({color:0x59425e,roughness:.4});const b=(mat,pos,scale)=>ball(outfit,mat,pos,scale,20);if(kind==='bow'){b(pink,[-.22,1.12,.12],[.2,.13,.08]);b(pink,[.22,1.12,.12],[.2,.13,.08]);b(gold,[0,1.12,.2],[.09,.09,.07]);}if(kind==='crown'){for(let i=0;i<5;i++){const c=new THREE.Mesh(new THREE.ConeGeometry(.09,.24,5),gold);c.position.set(-.34+i*.17,1.32,.04);outfit.add(c);}b(gold,[0,1.17,.02],[.45,.07,.25]);}if(kind==='glasses'){for(const x of [-.36,.36]){const r=new THREE.Mesh(new THREE.TorusGeometry(.15,.035,8,24),dark);r.position.set(x,.22,.7);outfit.add(r);}const bridge=new THREE.Mesh(new THREE.BoxGeometry(.18,.035,.04),dark);bridge.position.set(0,.22,.7);outfit.add(bridge);}if(kind==='flower'){for(let i=0;i<5;i++){const a=i*Math.PI*2/5;b(pink,[-.72+Math.cos(a)*.13,1.02+Math.sin(a)*.13,.24],[.11,.11,.06]);}b(gold,[-.72,1.02,.3],[.09,.09,.06]);}}
-    document.querySelectorAll('[data-bubbles-outfit]').forEach(button=>button.addEventListener('click',()=>{dress(button.dataset.bubblesOutfit);if(status)status.textContent=button.dataset.bubblesOutfit==='none'?'ALL NATURAL CLOUD BABY!!! ☁️':'EEEE!!! I LOOK SO CUTE!!! ♡';}));
+    let currentOutfit='none';
+    document.querySelectorAll('[data-bubbles-outfit]').forEach(button=>button.addEventListener('click',()=>{currentOutfit=button.dataset.bubblesOutfit;dress(currentOutfit);try{localStorage.setItem('bwBubblesOutfit',currentOutfit);}catch(_){};if(status)status.textContent=currentOutfit==='none'?'ALL NATURAL CLOUD BABY!!! ☁️':'EEEE!!! I LOOK SO CUTE!!! ♡';}));
+    try{currentOutfit=localStorage.getItem('bwBubblesOutfit')||'none';dress(currentOutfit);}catch(_){}
     // Small floating stars around Bubbles.
     const stars = [];
     const starMat = new THREE.MeshStandardMaterial({color:0xffc64a,emissive:0x553000,roughness:.45});
@@ -65,7 +72,7 @@ if (mount) {
     renderer.domElement.style.touchAction='pan-y';
     renderer.domElement.addEventListener('pointerdown',e=>{dragging=true;pointerMoved=false;petting=1;lastX=e.clientX;lastY=e.clientY;renderer.domElement.setPointerCapture(e.pointerId);if(status)status.textContent='OOOH, GENTLE PETS!!! MY CLOUD BRAIN IS PURRING!!! ♡';});
     renderer.domElement.addEventListener('pointermove',e=>{if(!dragging)return;const dx=e.clientX-lastX,dy=e.clientY-lastY;if(Math.abs(dx)+Math.abs(dy)>2)pointerMoved=true;targetY+=dx*.008;targetX=Math.max(-.45,Math.min(.45,targetX+dy*.006));lastX=e.clientX;lastY=e.clientY;});
-    renderer.domElement.addEventListener('pointerup',()=>{if(dragging&&!pointerMoved){giggle=1;if(status)status.textContent='TEEHEE!!! YOU TICKLED MY TINY CLOUD TUMMY!!! ♡';}dragging=false;});
+    renderer.domElement.addEventListener('pointerup',()=>{if(dragging&&!pointerMoved){giggle=1;petting=1;setFace('love');const heartMat=new THREE.MeshStandardMaterial({color:0xff75b7,emissive:0x55152f});const heart=new THREE.Mesh(new THREE.SphereGeometry(.09,12,10),heartMat);heart.position.set((Math.random()-.5)*1.1,-.1,.95);scene.add(heart);let life=0;const floatHeart=()=>{if(life++>36){scene.remove(heart);heart.geometry.dispose();heartMat.dispose();return;}heart.position.y+=.018;heart.scale.multiplyScalar(.985);requestAnimationFrame(floatHeart);};floatHeart();if(status)status.textContent='TEEHEE!!! YOU TICKLED MY TINY CLOUD TUMMY!!! 💗';}dragging=false;});
     renderer.domElement.addEventListener('pointercancel',()=>dragging=false);
     let width=0,height=0;
     function resize(){const w=Math.max(1,mount.clientWidth),h=Math.max(1,mount.clientHeight);if(w===width&&h===height)return;width=w;height=h;camera.aspect=w/h;camera.updateProjectionMatrix();renderer.setSize(w,h,false);}
