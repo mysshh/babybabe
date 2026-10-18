@@ -36,8 +36,7 @@ if (mount) {
     ball(baby,cloudMat,[.38,.78,0],[.65,.58,.58]);
     ball(baby,bodyMat,[0,-.58,0],[.72,.6,.55]);
     // Tiny ears
-    ball(baby,pinkMat,[-1.02,-.12,.04],[.18,.25,.15]);
-    ball(baby,pinkMat,[1.02,-.12,.04],[.18,.25,.15]);
+    // Keep the cloud silhouette clean: remove the two oversized pink side circles/ears.
     // Face is slightly forward so it reads clearly while rotating.
     const eyeLeft=ball(baby,darkMat,[-.36,.22,.79],[.075,.115,.045],24);
     const eyeRight=ball(baby,darkMat,[.36,.22,.79],[.075,.115,.045],24);
