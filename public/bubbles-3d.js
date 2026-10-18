@@ -59,7 +59,7 @@ function animate(t){requestAnimationFrame(animate);const now=performance.now(),t
 if(!dragging){if(zoomies>0){targetY=Math.sin(time*17)*.25;targetX=Math.cos(time*13)*.12;zoomies=Math.max(0,zoomies-.012)}else{targetY=reduce?0:Math.sin(time*.45)*.045;targetX=reduce?0:Math.sin(time*.31)*.025}}
 baby.rotation.y+=(targetY-baby.rotation.y)*.045+baby.rotation.y*-.001;baby.rotation.x+=(targetX-baby.rotation.x)*.05;
 const nap=sleeping||now-lastInteraction>22000; if(nap&&!sleeping){sleeping=true;setFace('sleepy');saveMemory('I had a tiny nap while dreaming of you. 🌙')}
-baby.position.y=nap?-.08+Math.sin(time*1.2)*.015:Math.sin(time*1.3)*.035+(petting>0?.025:0);
+const breathing=reduce?0:Math.sin(time*2.1)*.012;const helloHop=!nap&&!reduce&&Math.sin(time*.72)>.985?Math.pow(Math.max(0,Math.sin(time*.72)),12)*.16:0;baby.scale.set(1+breathing,1+breathing,1+breathing);baby.position.y=nap?-.08+Math.sin(time*1.2)*.015:Math.sin(time*1.3)*.035+(petting>0?.025:0)+helloHop;
 baby.rotation.z+=(nap?-.04:0-baby.rotation.z)*.025;
 face.position.x+=(gaze.x-face.position.x)*.035;face.position.y+=(.08+gaze.y-face.position.y)*.035;
 if(now>blinkNext&&!nap){blink=.18;blinkNext=now+2200+Math.random()*3800}if(blink>0){const k=Math.max(.015,1-blink/.18);eyeL.scale.y=eyeR.scale.y=.105*k;blink-=.012}else if(!nap&&faceMode!=='surprised'&&faceMode!=='love'){eyeL.scale.y=eyeR.scale.y=.105}
