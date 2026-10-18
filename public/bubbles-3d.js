@@ -68,7 +68,7 @@ if (mount) {
       scene.add(star); stars.push(star);
     }
     let dragging=false, lastX=0, lastY=0, pointerMoved=false, targetX=0, targetY=0, giggle=0, cursorX=0, cursorY=0, petting=0;
-    window.addEventListener('pointermove',e=>{cursorX=(e.clientX/window.innerWidth-.5)*2;cursorY=(e.clientY/window.innerHeight-.5)*2;});
+    window.addEventListener('pointermove',e=>{cursorX=(e.clientX/window.innerWidth-.5)*2;cursorY=(e.clientY/window.innerHeight-.5)*2;});window.addEventListener('pointerleave',()=>{cursorX=0;cursorY=0;});
     renderer.domElement.style.touchAction='pan-y';
     renderer.domElement.addEventListener('pointerdown',e=>{dragging=true;pointerMoved=false;petting=1;lastX=e.clientX;lastY=e.clientY;longHeld=false;clearTimeout(holdTimer);holdTimer=setTimeout(()=>{longHeld=true;setFace('sleepy');if(status)status.textContent='SHHH... TINY NAP TIME... 😴';},650);renderer.domElement.setPointerCapture(e.pointerId);if(status)status.textContent='OOOH, GENTLE PETS!!! MY CLOUD BRAIN IS PURRING!!! ♡';});
     renderer.domElement.addEventListener('pointermove',e=>{if(!dragging)return;const dx=e.clientX-lastX,dy=e.clientY-lastY;if(Math.abs(dx)+Math.abs(dy)>2)pointerMoved=true;targetY+=dx*.008;targetX=Math.max(-.45,Math.min(.45,targetX+dy*.006));lastX=e.clientX;lastY=e.clientY;});

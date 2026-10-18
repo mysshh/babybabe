@@ -157,7 +157,10 @@ document.addEventListener("pointermove",e=>{
   const r=face.getBoundingClientRect(),cx=r.left+r.width/2,cy=r.top+r.height/2;
   const dx=Math.max(-5,Math.min(5,(e.clientX-cx)/24)),dy=Math.max(-4,Math.min(4,(e.clientY-cy)/28));
   $$(".eye").forEach(eye=>{eye.style.translate=dx+"px "+dy+"px"});
+  const baby=$("#babyCharacter");if(baby){baby.style.setProperty("--look-x",dx+"px");baby.style.setProperty("--look-y",dy+"px");baby.style.transform="rotate("+Math.max(-4,Math.min(4,dx*.65))+"deg) translateY("+Math.max(-3,Math.min(3,dy*.45))+"px)";}
 });
+document.addEventListener("pointerleave",()=>{$$(".eye").forEach(eye=>{eye.style.translate="0px 0px"});const baby=$("#babyCharacter");if(baby){baby.style.setProperty("--look-x","0px");baby.style.setProperty("--look-y","0px");baby.style.transform="";}});
+const mainBaby=$("#babyCharacter");if(mainBaby){let faceTap=0,faceTimer;mainBaby.addEventListener("click",()=>{faceTap++;clearTimeout(faceTimer);mainBaby.classList.remove("face-loved","face-shy","face-surprised");const mood=faceTap%3;mainBaby.classList.add(mood===1?"face-loved":mood===2?"face-shy":"face-surprised");faceTimer=setTimeout(()=>{mainBaby.classList.remove("face-loved","face-shy","face-surprised");faceTap=0;},1800);});}
 try{
   const visits=Number(localStorage.getItem("bubblesBabyVisits")||0)+1;
   localStorage.setItem("bubblesBabyVisits",String(visits));
