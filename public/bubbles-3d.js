@@ -41,18 +41,20 @@ if (mount) {
     // Face is slightly forward so it reads clearly while rotating.
     const eyeLeft=ball(baby,darkMat,[-.36,.22,.625],[.075,.115,.045],24);
     const eyeRight=ball(baby,darkMat,[.36,.22,.625],[.075,.115,.045],24);
+    eyeLeft.material=darkMat.clone();eyeRight.material=darkMat.clone();
     const eyeOpenScale={left:eyeLeft.scale.y,right:eyeRight.scale.y};
+    const eyeLeftBase=eyeLeft.position.x,eyeRightBase=eyeRight.position.x;
     ball(baby,whiteMat,[-.38,.26,.662],[.022,.028,.012],16);
     ball(baby,whiteMat,[.34,.26,.662],[.022,.028,.012],16);
-    ball(baby,pinkMat,[-.58,-.03,.61],[.16,.09,.035],24);
-    ball(baby,pinkMat,[.58,-.03,.61],[.16,.09,.035],24);
+    const cheekLeft=ball(baby,pinkMat,[-.58,-.03,.61],[.16,.09,.035],24);
+    const cheekRight=ball(baby,pinkMat,[.58,-.03,.61],[.16,.09,.035],24);
     // Curved smile as a TubeGeometry.
     const smilePts = [];
     for(let i=0;i<=20;i++){const x=-.19+i*.019; const y=-.02-.12*(1-Math.pow(x/.19,2)); smilePts.push(new THREE.Vector3(x,.02+y,.67));}
     const smile = new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(smilePts),24,.025,8,false),darkMat); baby.add(smile);
     const faceModes={happy:{eye:.115,mouth:1,tilt:0},sleepy:{eye:.035,mouth:.65,tilt:.08},surprised:{eye:.15,mouth:1.8,tilt:-.04},love:{eye:.07,mouth:1.25,tilt:0},silly:{eye:.09,mouth:1.45,tilt:-.1}};
     let faceMode='happy';
-    function setFace(mode){faceMode=faceModes[mode]?mode:'happy';const f=faceModes[faceMode];eyeLeft.scale.y=f.eye;eyeRight.scale.y=f.eye;smile.scale.set(1,f.mouth,1);if(status)status.textContent=({happy:'HAPPY CLOUD BABY!!! 🥰',sleepy:'MMM... JUST A TINY NAP... 😴',surprised:'WOAHHH!!! 😮',love:'I LOVE YOU THIS MUCH!!! 💗',silly:'BLEHHHHH!!! 😜'})[faceMode];}
+    function setFace(mode){faceMode=faceModes[mode]?mode:'happy';const f=faceModes[faceMode];eyeLeft.scale.y=f.eye;eyeRight.scale.y=f.eye;smile.scale.set(1,f.mouth,1);const love=faceMode==='love',shy=faceMode==='shy',surprised=faceMode==='surprised';eyeLeft.material.color.set(love?0xff4b9b:0x59425e);eyeRight.material.color.set(love?0xff4b9b:0x59425e);cheekLeft.scale.set(shy?1.8:1,shy?1.8:1,1);cheekRight.scale.set(shy?1.8:1,shy?1.8:1,1);if(status)status.textContent=({happy:'HAPPY CLOUD BABY!!! 🥰',sleepy:'MMM... JUST A TINY NAP... 😴',surprised:'WOAHHH!!! 😮',love:'I LOVE YOU THIS MUCH!!! 💗',silly:'BLEHHHHH!!! 😜'})[faceMode];}
     let tapCount=0,tapTimer=null,holdTimer=null,longHeld=false;const faceCycle=['happy','love','surprised','silly'];let faceIndex=0;function cycleFace(){faceIndex=(faceIndex+1)%faceCycle.length;setFace(faceCycle[faceIndex]);}
     const outfit = new THREE.Group(); baby.add(outfit);
     function dress(kind){outfit.clear();const pink=new THREE.MeshStandardMaterial({color:0xff6fae,roughness:.5});const gold=new THREE.MeshStandardMaterial({color:0xffd34f,roughness:.4});const dark=new THREE.MeshStandardMaterial({color:0x59425e,roughness:.4});const b=(mat,pos,scale)=>ball(outfit,mat,pos,scale,20);if(kind==='bow'){b(pink,[-.22,1.12,.12],[.2,.13,.08]);b(pink,[.22,1.12,.12],[.2,.13,.08]);b(gold,[0,1.12,.2],[.09,.09,.07]);}if(kind==='crown'){for(let i=0;i<5;i++){const c=new THREE.Mesh(new THREE.ConeGeometry(.09,.24,5),gold);c.position.set(-.34+i*.17,1.32,.04);outfit.add(c);}b(gold,[0,1.17,.02],[.45,.07,.25]);}if(kind==='glasses'){for(const x of [-.36,.36]){const r=new THREE.Mesh(new THREE.TorusGeometry(.15,.035,8,24),dark);r.position.set(x,.22,.7);outfit.add(r);}const bridge=new THREE.Mesh(new THREE.BoxGeometry(.18,.035,.04),dark);bridge.position.set(0,.22,.7);outfit.add(bridge);}if(kind==='flower'){for(let i=0;i<5;i++){const a=i*Math.PI*2/5;b(pink,[-.72+Math.cos(a)*.13,1.02+Math.sin(a)*.13,.24],[.11,.11,.06]);}b(gold,[-.72,1.02,.3],[.09,.09,.06]);}}
@@ -82,6 +84,7 @@ if (mount) {
       requestAnimationFrame(animate); resize();
       if(!dragging){targetY += reduceMotion?0:.0018;}
       baby.rotation.y += (targetY+cursorX*.22-baby.rotation.y)*.08;
+      eyeLeft.position.x=eyeLeftBase+Math.max(-.055,Math.min(.055,cursorX*.055));eyeRight.position.x=eyeRightBase+Math.max(-.055,Math.min(.055,cursorX*.055));eyeLeft.position.y=.22+Math.max(-.035,Math.min(.035,-cursorY*.035));eyeRight.position.y=eyeLeft.position.y;
       baby.rotation.x += (targetX-cursorY*.08+(petting>0?.08:0)-baby.rotation.x)*.08;
       const time=t*.001;
       baby.position.y=(reduceMotion?0:Math.sin(time*1.3)*.09)+(petting>0?.035:0);
