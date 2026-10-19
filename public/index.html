@@ -5,7 +5,7 @@
 <title>HIIII!!! Welcome to Baby World!!!</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Comic+Neue:wght@700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/style.css?v=50"><link rel="stylesheet" href="/tier3.css?v=1"><link rel="stylesheet" href="/bubbles-3d.css?v=5">
+<link rel="stylesheet" href="/style.css?v=50"><link rel="stylesheet" href="/tier3.css?v=1"><link rel="stylesheet" href="/bubbles-3d.css?v=5"><link rel="stylesheet" href="/world-map.css?v=1">
 </head>
 <body>
 <div class="confetti-bg" aria-hidden="true">✿　★　♡　✦　☁　★　✿　♡　✦　★　☁　♡</div>
@@ -14,6 +14,9 @@
   <div class="header-middle">HIIII FRIEND!!! <span class="wiggle">👋</span></div>
   <div class="header-controls"><button id="dayNightToggle" class="sound-btn theme-btn" aria-pressed="false">🌙 NIGHT MODE?</button><button id="musicToggle" class="sound-btn" aria-pressed="false">🔊 SOUND ON?</button></div>
 </header>
+<nav class="world-nav" aria-label="Explore Baby World">
+  <a href="#home">☁️ Home</a><a href="#bubbles-3d">💗 Bubbles' Room</a><a href="#babysGarden">🌷 Garden</a><a href="#playroom">🎮 Playroom</a><a href="#story">🌙 Dreamland</a><a href="#guestbook">💌 Memories</a><a href="#fortune">🔮 Secrets</a>
+</nav>
 <main id="home">
 <section class="hero">
   <div class="hero-stickers"><span class="sticker sticker-wow">WOW!!!</span><span class="sticker sticker-heart">♡</span><span class="sticker sticker-star">★ ★ ★</span></div>
@@ -41,6 +44,18 @@
     <p class="character-hint">☝ CLICK MY FACE!!! ☝</p>
   </div>
   <div class="marquee"><div class="marquee-inner">WELCOME WELCOME WELCOME!!! ★ YOU ARE SO COOL!!! ★ CLICK EVERYTHING!!! ★ NO BEDTIME YET!!! ★ WELCOME WELCOME WELCOME!!! ★ YOU ARE SO COOL!!! ★ CLICK EVERYTHING!!! ★ NO BEDTIME YET!!! ★</div></div>
+</section>
+
+<section class="world-map" aria-labelledby="worldMapTitle">
+  <div class="world-map-heading"><span>☁️ A TINY MAP OF OUR UNIVERSE ☁️</span><h2 id="worldMapTitle">WHERE SHALL WE GO???</h2><p>Pick a little door! Everything you love is still here. 💗</p></div>
+  <div class="world-map-grid">
+    <a class="world-map-card room" href="#bubbles-3d"><span class="world-map-emoji">☁️💗</span><strong>BUBBLES' ROOM</strong><small>Meet, cuddle, dress up & chat</small></a>
+    <a class="world-map-card garden" href="#babysGarden"><span class="world-map-emoji">🌷🦋</span><strong>BABY'S GARDEN</strong><small>Plant, water, grow & harvest</small></a>
+    <a class="world-map-card arcade" href="#playroom"><span class="world-map-emoji">🎮⭐</span><strong>GIGGLE ARCADE</strong><small>Playroom & silly games</small></a>
+    <a class="world-map-card dream" href="#story"><span class="world-map-emoji">🌙📖</span><strong>DREAMLAND</strong><small>Stories, songs & sleepy time</small></a>
+    <a class="world-map-card memories" href="#guestbook"><span class="world-map-emoji">💌🫙</span><strong>HAPPY MEMORY VAULT</strong><small>Happy Jar & guestbook</small></a>
+    <a class="world-map-card secrets" href="#fortune"><span class="world-map-emoji">🔮✨</span><strong>SECRET STUFF</strong><small>Fortunes & tiny surprises</small></a>
+  </div>
 </section>
 
 <section class="about section" id="about">
