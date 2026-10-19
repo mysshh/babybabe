@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+<defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fff1a8"/><stop offset="1" stop-color="#ffb8d8"/></linearGradient></defs>
+<rect width="128" height="128" rx="30" fill="url(#bg)"/>
+<path d="M25 73c-11-2-15-15-7-24 5-6 13-7 20-3 2-14 17-23 31-18 8 3 13 9 15 17 12-3 23 6 23 18 0 10-8 18-19 18H35c-4 0-7-3-10-8Z" fill="#fff" stroke="#805b9b" stroke-width="4" stroke-linejoin="round"/>
+<ellipse cx="48" cy="63" rx="4" ry="6" fill="#46334f"/><ellipse cx="77" cy="63" rx="4" ry="6" fill="#46334f"/>
+<ellipse cx="38" cy="72" rx="7" ry="4" fill="#ff8da9" opacity=".85"/><ellipse cx="86" cy="72" rx="7" ry="4" fill="#ff8da9" opacity=".85"/>
+<path d="M57 72q6 8 12 0" fill="none" stroke="#46334f" stroke-width="3" stroke-linecap="round"/>
+<path d="m24 28 4 9 10 1-8 6 2 10-8-6-8 6 2-10-8-6 10-1Z" fill="#fff" stroke="#805b9b" stroke-width="2"/>
+<path d="m98 25 3 7 8 1-6 5 2 8-7-4-7 4 2-8-6-5 8-1Z" fill="#fff" stroke="#805b9b" stroke-width="2"/>
+<text x="64" y="108" text-anchor="middle" font-family="Arial,sans-serif" font-weight="900" font-size="17" fill="#68467d">BUBBLES</text>
+</svg>
